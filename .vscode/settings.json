@@ -1,0 +1,25 @@
+{
+    "workbench.editor.enablePreviewFromCodeNavigation": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "git.allowForcePush": true,
+    "git.autoStash": true,
+    "git.blame.editorDecoration.disableHover": true,
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.ignoreWhitespace": true,
+    "git.enableSmartCommit": false,
+    "git.mergeEditor": true,
+    "git.postCommitCommand": "sync",
+    "git.pullBeforeCheckout": true,
+    "files.autoSave": "onWindowChange",
+    "workbench.editor.alwaysShowEditorActions": true,
+    "workbench.editor.autoLockGroups": {
+        "workbench.editor.processExplorer": false,
+        "terminalEditor": false,
+        "mainThreadWebview-simpleBrowser.view": false,
+        "mainThreadWebview-browserPreview": false
+    },
+    "workbench.settings.alwaysShowAdvancedSettings": true,
+    "scm.alwaysShowRepositories": true,
+    "git.allowNoVerifyCommit": true,
+    "git.alwaysShowStagedChangesResourceGroup": true
+}
