@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - BookVerse Admin</title>
+    <link rel="stylesheet" href="adminStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open" style="color: #2563eb;"></i> 
+            <span>BookVerse</span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="adminDashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="manageStaff.html"><i class="fas fa-user-tie"></i> Manage Staff</a></li>
+            <li><a href="manageMembers.html"><i class="fas fa-users"></i> Manage Members</a></li>
+            <li><a href="manageCategories.html"><i class="fas fa-layer-group"></i> Manage Categories</a></li>
+            <li><a href="manageProducts.html"><i class="fas fa-book"></i> Manage Books</a></li>
+            <li><a href="manageOrders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+            <li><a href="salesReport.html"><i class="fas fa-chart-line"></i> Sales Report</a></li>
+            
+            <li style="margin-top: auto; border-top: 1px solid #eee; padding-top: 10px;">
+                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <h2>Dashboard Overview</h2>
+            
+            <div class="user-menu" style="display: flex; align-items: center; gap: 15px;">
+                <span id="displayUsername" style="font-weight: 600; color: #374151;">Loading...</span>
+                <div id="displayInitials" style="width: 36px; height: 36px; background-color: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">--</div>
+            </div>
+        </header>
+
+        <div class="dashboard-view">
+            <div class="card-grid">
+                <div class="card">
+                    <div class="metric"><span>Total Orders</span> <strong>152</strong></div>
+                </div>
+                <div class="card">
+                    <div class="metric"><span>Total Members</span> <strong>84</strong></div>
+                </div>
+                <div class="card">
+                    <div class="metric"><span>Total Books</span> <strong>420</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="adminScript.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentUser = localStorage.getItem("currentAdminUser");
+            if (!currentUser) {
+                window.location.href = "adminLogin.html";
+            } else {
+                document.getElementById("displayUsername").textContent = currentUser;
+                document.getElementById("displayInitials").textContent = currentUser.substring(0, 2).toUpperCase();
+            }
+        });
+    </script>
+</body>
+</html>
