@@ -8,15 +8,10 @@ if(isset($_POST['fullname'])){
     $username=mysqli_real_escape_string($conn,$_POST['username']);
     $email=mysqli_real_escape_string($conn,$_POST['email']);
     $password=$_POST['password'];
-    $comfirm=$_POST['comfirm-password'];
+    $confirm=$_POST['confirm-password'];
 
-    if($password !== $comfirm){
+    if($password !== $confirm){
         die("Passwords do not match");
-    }
-    
-    if (password!== $comfirm){
-        echo "Password do not match";
-        exit();
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
