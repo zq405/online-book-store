@@ -8,7 +8,7 @@ if(isset($_POST['fullname'])){
     $username=mysqli_real_escape_string($conn,$_POST['username']);
     $email=mysqli_real_escape_string($conn,$_POST['email']);
     $password=$_POST['password'];
-    $confirm=$_POST['confirm-password'];
+    $confirm=$_POST['confirm_password'];
 
     if($password !== $confirm){
         die("Passwords do not match");
