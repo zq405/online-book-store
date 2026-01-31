@@ -19,7 +19,8 @@ if(isset($_POST['fullname'])){
     $sql="insert into `users` (fullname, username, email, password) values ('$fullname', '$username', '$email', '$hashed_password')";
     
     if(mysqli_query($conn,$sql)){
-        echo "Registration successful! <a href='login.html'>Login here</a>";
+        header('Location: signup_success.html');
+        exit();
     } else{
         echo "Error: ". mysqli_error($conn);
     }
