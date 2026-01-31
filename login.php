@@ -16,14 +16,16 @@ if(isset($_POST['username'])){
         if(password_verify($password, $row['password'])){
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
-           header("Location: dashboard.php");
+           header("Location: index.php");
            exit();
 
         } else{
-            echo "Invalid password.";
+            header("Location: login.html?error=".urlencode("Invalid password."));
+            exit();
         }
     } else{
-        echo "User not found.";
+        header("Location: login.html?error=".urlencode("User not found."));
+        exit();
     }
 } 
 
