@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Staff - BookVerse Admin</title>
+    <link rel="stylesheet" href="adminStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .data-table th,
+      .data-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+      .data-table th {
+        background: #f8fafc;
+        font-weight: 600;
+        color: #374151;
+      }
+      .data-table tr:hover {
+        background: #f9fafb;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        width: 400px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+      }
+      .btn-save {
+        background: #0d47a1;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .btn-cancel {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fas fa-book-open" style="color: #0d47a1"></i>
+        <span>BookVerse</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="adminDashboard.html"
+            ><i class="fas fa-home"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="manageStaff.html" class="active"
+            ><i class="fas fa-user-tie"></i> Manage Staff</a
+          >
+        </li>
+        <li>
+          <a href="manageMembers.html"
+            ><i class="fas fa-users"></i> Manage Members</a
+          >
+        </li>
+        <li>
+          <a href="manageCategories.html"
+            ><i class="fas fa-layer-group"></i> Manage Categories</a
+          >
+        </li>
+        <li>
+          <a href="manageProducts.html"
+            ><i class="fas fa-book"></i> Manage Books</a
+          >
+        </li>
+        <li>
+          <a href="manageOrders.html"
+            ><i class="fas fa-shopping-cart"></i> Manage Orders</a
+          >
+        </li>
+        <li>
+          <a href="salesReport.html"
+            ><i class="fas fa-chart-line"></i> Sales Report</a
+          >
+        </li>
+        <li
+          style="
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+          "
+        >
+          <a href="#" onclick="logout()"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <header class="top-bar">
+        <h2>Manage Staff</h2>
+        <div class="user-menu">
+          <span id="displayUsername" style="font-weight: 600">Admin</span>
+          <div
+            class="profile-img"
+            style="
+              background: #0d47a1;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+            "
+          >
+            AD
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-view">
+        <div class="page-header">
+          <h1 class="page-title">Staff List</h1>
+          <button onclick="openStaffModal()" class="btn-primary">
+            <i class="fas fa-plus"></i> Add New Staff
+          </button>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="staffGrid"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="staffModal" class="modal">
+      <div class="modal-content">
+        <h2 style="margin-bottom: 20px; color: #0d47a1">Add New Staff</h2>
+        <form onsubmit="saveStaff(event)">
+          <input type="hidden" id="staffId" />
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="staffName" required placeholder="" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="staffEmail"
+              required
+              placeholder="yourname@bookverse.com"
+            />
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="staffRole">
+              <option value="Manager">Manager</option>
+              <option value="Staff">Staff</option>
+              <option value="Intern">Intern</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <select id="staffStatus">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div
+            class="form-actions"
+            style="display: flex; justify-content: flex-end; gap: 10px"
+          >
+            <button
+              type="button"
+              onclick="closeStaffModal()"
+              class="btn-cancel"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-save">Save Staff</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="adminScript.js"></script>
+  </body>
+</html>
