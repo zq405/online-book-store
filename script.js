@@ -19,17 +19,17 @@ function submitComment()
     alert("Thank you for your feedback!");
 }
 
-const books=
-[
-    {
-        tittle:"The Digital Revolution",
-        author:"John Revolution",
-        category:"science & technology",
-        price:"$9.99",
-        link:"book1.html"
-    },
-    {
-        tittle:"Beyond the Horizon",
+function getCategoryFromURL()
+{
+    const params= new URLSearchParams(window.location.search);
+    return params.get("category");
+}
 
-    }
-]
+function loadBooks()
+{
+    const category=getCategoryFromURL();
+    const bookList =document.getElementById("booklist");
+    const tittle= document.getElementById("categoryTittle");
+
+    let filteredBooks = book;
+}

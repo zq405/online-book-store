@@ -189,7 +189,10 @@ $result=mysqli_query($conn,$sql);
                 <div class="filter-group">
                     <label for="sort">Sort By</label>
                     <select id="sort" name="sort">
-                        <option value>
+                        <option value="tittle"<?php echo $sort=='tittle'?'selected':'';?>>Tittle A-Z</option>
+                        <option value="author"<?php echo $sortr=='author'?'selected':'';?>>Author</option>
+                        <option value="price_low"<?php echo $sort=='price_low'?'selected':''?>>Price : Low to High</option>
+                        
 
     
 </body>
