@@ -2,6 +2,7 @@
 
 include 'connect.php';
 
+$error = '';
 if(isset($_POST['fullname'])){
 
     $fullname=mysqli_real_escape_string($conn,$_POST['fullname']);
@@ -11,18 +12,28 @@ if(isset($_POST['fullname'])){
     $confirm=$_POST['confirm_password'];
 
     if($password !== $confirm){
-        die("Passwords do not match");
+        $error = "Passwords do not match";
     }
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Check username uniqueness
+    if(empty($error)){
+        $check = mysqli_query($conn, "SELECT id FROM users WHERE username = '$username' LIMIT 1");
+        if($check && mysqli_num_rows($check) > 0){
+            $error = "Username already exists. Please choose another.";
+        }
+    }
 
-    $sql="insert into `users` (fullname, username, email, password) values ('$fullname', '$username', '$email', '$hashed_password')";
-    
-    if(mysqli_query($conn,$sql)){
-        header('Location: signup_success.php');
-        exit();
-    } else{
-        echo "Error: ". mysqli_error($conn);
+    if(empty($error)){
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql="insert into `users` (fullname, username, email, password) values ('$fullname', '$username', '$email', '$hashed_password')";
+        
+        if(mysqli_query($conn,$sql)){
+            header('Location: signup_success.php');
+            exit();
+        } else{
+            $error = "Error: ". mysqli_error($conn);
+        }
     }
 }
 ?>
@@ -122,6 +133,7 @@ if(isset($_POST['fullname'])){
 <body>
     <div class="login-container">
         <div class="login-title">Create Your BookVerse Account</div>
+        <?php if(!empty($error)){ echo '<div style="color:#d32f2f;margin-bottom:10px;">'.htmlspecialchars($error).'</div>'; } ?>
         <form class="login-form" method="POST" action="register.php">
             <div>
                 <label for="fullname">Full Name</label>
@@ -134,6 +146,7 @@ if(isset($_POST['fullname'])){
             <div>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                <div id="username-msg" style="margin-top:6px;font-size:0.95rem;color:#d32f2f;"></div>
             </div>
             <div>
                 <label for="password">Password</label>
@@ -143,11 +156,65 @@ if(isset($_POST['fullname'])){
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat your password" required>
             </div>
-            <button type="submit" class="login-btn">Sign Up</button>
+            <button type="submit" id="signup-btn" class="login-btn">Sign Up</button>
         </form>
         <div class="login-links">
             Already have an account? <a href="Login.html">Login</a>
         </div>
     </div>
+    <script>
+        (function(){
+            const username = document.getElementById('username');
+            const msg = document.getElementById('username-msg');
+            const signupBtn = document.getElementById('signup-btn');
+            let timer = null;
+            let lastChecked = '';
+            let available = true;
+
+            function setState(isAvailable, text){
+                available = isAvailable;
+                if(isAvailable){
+                    msg.style.color = '#2e7d32';
+                } else {
+                    msg.style.color = '#d32f2f';
+                }
+                msg.textContent = text;
+                signupBtn.disabled = !isAvailable;
+            }
+
+            function checkUsername(name){
+                if(!name) { setState(false, 'Enter a username'); return; }
+                if(name === lastChecked) return;
+                lastChecked = name;
+                fetch('check_username.php?username=' + encodeURIComponent(name))
+                    .then(r=>r.json())
+                    .then(data=>{
+                        if(data.available){
+                            setState(true, 'Username is available');
+                        } else {
+                            setState(false, 'Username already taken — please choose another');
+                        }
+                    })
+                    .catch(()=>{
+                        setState(false, 'Could not verify username');
+                    });
+            }
+
+            username.addEventListener('input', function(){
+                msg.textContent = '';
+                signupBtn.disabled = true;
+                clearTimeout(timer);
+                const val = this.value.trim();
+                timer = setTimeout(()=> checkUsername(val), 400);
+            });
+
+            document.querySelector('form.login-form').addEventListener('submit', function(e){
+                if(!available){
+                    e.preventDefault();
+                    username.focus();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
