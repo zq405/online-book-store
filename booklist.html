@@ -631,10 +631,10 @@
                     <label for="category"><i class="fas fa-folder"></i>Category</label>
                     <select id="category">
                         <option value="">All Categories</option>
-                        <option value="Ficiton">Ficiton</option>
-                        <option value="Educational">Educational</option>
-                        <option value="Science">Science</option>
-                        <option value="Business">Business</option>
+                        <option value="ficiton">Ficiton</option>
+                        <option value="educational">Educational</option>
+                        <option value="science">Science</option>
+                        <option value="business">Business</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -702,7 +702,7 @@
         <!--book display-->
         <div class="books-display">
             <div id="grid-view" class="books-grid">
-
+        
             </div>
             <div id="list-view" class="books-list" style="display:none">
 
@@ -715,5 +715,612 @@
         </div>
     </div>
     <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>
+
+    <script>
+        const booksData=
+        [
+            {
+                id:1, 
+                tittle:"The Digital Revolution", 
+                author:"John Smith", 
+                description:"A comprehensive guide to understanding how digital transformation is changing business and societies worldwide.",
+                price:9.90,
+                originalPrice:14.99, 
+                rating:4.8, 
+                reviewCount:248,
+                page:320,
+                publishDate:"2024-01-15",
+                isBestseller:true,
+                isNew:false,
+                category:"technology",
+                tags:["Technology","Business", "Innovation"]
+            },
+            {
+                id:2, 
+                tittle:"Beyond the Horizon", 
+                author:"Emily Davis",
+                description:"An epic space adventure that explores the limits of human exploration and the mysteries of the universe.", 
+                price:12.99,
+                originalPrice:null, 
+                rating:4.5, 
+                reviewCount:165,
+                category:"fiction", 
+                page:450,
+                publishDate:"2024-02-10",
+                isBestseller:true,
+                isNew:false,
+                tags:["Science Fiction","Adventure", "Space"]
+            },
+            {
+                id:3, 
+                tittle:"Code Masters : The Art of Programming", 
+                author:"Alex Johnson",
+                description:"Master the art of programming with this comprehensive guide covering advanced algorithms and best practices.", 
+                price:14.99,
+                originalPrice:19.99, 
+                rating:4.9, 
+                reviewCount:312,
+                category:"technology",
+                page:520,
+                publishDate:"2023-11-05",
+                isBestseller:true,
+                isNew:false,
+                tags:["Programming","Technology","Education"]
+            },
+            {
+                id:4, 
+                tittle:"Mindful Living : A Practical Guide", 
+                author:"Sarah Wilson",
+                description:"Discover the path to inner peace and mindfulness with practical exercise and daily routines.", 
+                price:11.99, 
+                originalPrice:null,
+                rating:4.3, 
+                reviewCount:189,
+                category:"business",
+                page:280,
+                publishDate:"2024-03-01",
+                isBestseller:false,
+                isNew:true, 
+                tags:["Mindfulness","Wellness","Business"]
+            },
+            {
+                id:5, 
+                tittle:"Ocean Mysteries", 
+                author:"Michael Brown", 
+                description:"Explore the deepest secrets of the ocean with stunning photography and scientific discoveries.",
+                price:13.99, 
+                originalPrice:17.99,
+                rating:4.7, 
+                reviewCount:267,
+                category:"education",
+                page:380,
+                publishDate:"2023-12-20",
+                isBestseller:true,
+                isNew:false,
+                tags:["Science","Nature","Education"]  
+            },
+            {
+                id:6, 
+                tittle:"Startup Stories : From Garage to Global", 
+                author:"Lisa Anderson", 
+                description:"Inspiring stories of entrepreneurs who turned their garage startups into global enterprises.",
+                price:10.99, 
+                originalPrice:null,
+                rating:4.2, 
+                reviewCount:142,
+                category:"business",
+                page:310,
+                publishDate:"2024-01-30",
+                isBestseller:false,
+                isNew:true,
+                tags:["Business","Entrepreneurship","Success"]
+            },
+            {
+                id:7, 
+                tittle:"The AI Revolution", 
+                author:"David Chen", 
+                description:"Understanding artificial intelligence and its impact on the future of work and society.",
+                price:15.99, 
+                originalPrice:24.99,
+                rating:4.8, 
+                reviewCount:321,
+                category:"technology",
+                page:420,
+                publishDate:"2024-02-25",
+                isBestseller:true,
+                isNew:false, 
+                tags:["AI","Technology","Future"]
+            },
+            {
+                id:8, 
+                tittle:"French Cooking Masterclass", 
+                author:"Pierre Laurent",
+                description:"Master the art of Frech cuisine with step-by-step recipes from a Michelin-starred chef.", 
+                price:18.99,
+                originalPrice:null, 
+                rating:4.9, 
+                reviewCount:98,
+                category:"educational",
+                page:350,
+                publishDate:"2023-11-15",
+                isBestseller:false,
+                isNew:false,
+                tags:["Cooking","Food","Education"]
+            }
+        ];
+
+        let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
+
+        let currentView='grid';
+        let currentPage=1;
+        const booksPerPage=8;
+        let filteredBooks =[...booksData];
+
+        document.addEventListener('DOMContentLoaded',function(){
+            const priceRange=document.getElementById('price-range');
+            const priceDisplay=document.getElementById('price-display');
+
+            priceRange.addEventListener('input',function(){
+                priceDisplay.textContent =`Up to $${this.value}`;
+            });
+
+            applyFilters();
+
+            updateCartCount();
+        });
+
+        function switchView(view)
+        {
+            currentView=view;
+
+            document.querySelectorAll('.view-btn').forEach(btn=>{
+                btn.classList.toggle('active',btn.dataset.view===view);
+            });
+
+            document.getElementById('grid-view').style.display=view==='grid'?'grid':'none';
+            document.getElementById('kist-view').style.display=view==='list'?'flex':'none';
+
+            rendersBooks();
+        }
+
+        function applyFilters()
+        {
+            const category=document.getElementById('category').value;
+            const author=document.getElementById('author').value.toLowerCase();
+            const minRating=parseFloat(document.getElementById('rating').value);
+            const maxPrice=parseInt(document.getElementById('price-range').value);
+            const sortBy=document.getElementById('sort-by').value;
+
+            filteredBooks=booksData.filter(book=>{
+                if (category && book.category!==category)return false;
+                if(author && !book.author.toLowerCase().includes(author)) return false;
+                if(minRating>0 && book.rating<minRating) return false;
+                if(maxPrice<150 && book.price>maxPrice) return false;
+                
+                return true;
+            });
+
+            sortBooks(sortBy);
+
+            currentPage=1;
+            renderBooks();
+            renderPagination();
+
+            document.getElementById('results-count').textContent=Math.min(booksPerPage,filteredBooks.length);
+            document.getElementById('total-results').textContent=filteredBooks.length;
+        }
+
+        function sortBooks(sortBy)
+        {
+            switch(sortBy)
+            {
+                case 'newest':
+                    filteredBooks.sort((a,b)=>new Date(b.publishDate)- new Date(a.publishDate));
+                    break;
+                case 'popular':
+                    filteredBooks.sort((a,b)=>b.reviewCount-a.reviewCount);
+                    break;
+                case 'rating':
+                    filteredBooks.sort((a,b)=>b.rating-a.rating);
+                    break;
+                case 'price-asc':
+                    filteredBooks.sort((a,b)=>a.price-b.price);
+                    break;
+                case 'price-desc':
+                    filteredBooks.sort((a,b)=>b.price-a.price);
+                    break;
+                default:
+                    filteredBooks.sort((a,b)=>b.rating*b.reviewCount-a.rating*a.reviewCount);
+            }
+        }
+
+        function clearFilters()
+        {
+            document.getElementById('category').value="";
+            document.getElementById('author').value="";
+            document.getElementById('rating').value='0';
+            document.getElementById('price-range').value='75';
+            document.getElementById('price-display').textContent='Up to $150';
+            document.getElementById('sort-by').value='relevance';
+
+            applyFilters();
+        }
+
+        function renderBooks()
+        {
+            const startIndex=(currentPage-1)*booksPerPage;
+            const endIndex=startIndex+booksPerPage;
+            const booksToShow=filteredBooks.slice(startIndex,endIndex);
+
+            if(booksToShow.length===0)
+            {
+                showNoResults();
+                return;
+            }
+
+            if(currentView==='grid')
+            {
+                renderGridView(booksToShow);
+            }
+            else
+            {
+                renderListView(booksToShow);
+            }
+        }
+
+        function renderGridView(books)
+        {
+            const gridView=document.getElementById('grid-view');
+            gridView.innerHTML='';
+
+            books.forEach(book=>{
+                const isInCart=shoppingCart.some(item=>item.id===book.id);
+                const bookCard=document.createElement('div');
+                bookCard.className='book-card';
+                if(book.isBestseller)bookCard.classList.add('bestseller');
+                if(book.isNew)bookCard.classList.add('new');
+
+                const discount=book.originalPrice?
+                    Math.round((1-book.price/book.originalPrice)*100):0;
+                bookCard.innerHTML=`
+                <div class="book-cover">
+                    <span class="category-tag">${book.tags[0]}</span>
+                    <div class="tittle-preview">${book.tittle}</div>
+                    <div class="author-preview">by ${book.author}</div>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-tittle">${book.tittle}</h3>
+                    <div class="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        ${book.author}
+                    </div>
+                    <p class="book-description">${book.description}</p>
+                    <div class="book-meta">
+                        <div class="book-rating">
+                            ${generateStars(book.rating)}
+                            <span class="count">(${book.reviewCount})</span>
+                        </div>
+                        <span class="book-category">${book.category}</span>
+                    </div>
+                    <div class="book-price">
+                        $${book.price.toFixed(2)}
+                        ${book.originalPrice ?
+                            `<span class="orginal-price">$${book.originalPrice.toFixed(2)}</span>`:''}
+                        ${discount>0?`<span class="discount">-${discount}%</span>`:''}
+                    </div>
+                    <div class="book-actions">
+                        <button class="btn-view-details" onclick="viewBooks(${book.id})">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </button>
+                        <button class="btn-add-to-cart ${isInCart ? 'added' :''}"
+                            onclick="addToCart(${book.id})"
+                            ${isInCart ? 'disabled':''}>
+                            <i class="fas ${isInCart ? 'fa-check':'fa-cart-plus'}"></i>
+                            ${isInCart ? 'Added' : 'Add to Cart'}
+                        </button>
+                    </div>
+                </div>
+                `;
+                gridView.appendChild(bookCard);
+            });
+        }
+
+        function renderListView(books)
+        {
+            const lostView=document.getElementById('list-view');
+            listView.innerHTML='';
+            book.forEach(book=>{
+                const isInCart=shoppingCart.some(item=>item.id===book.id);
+                const discount=book.originalPrice ? 
+                    Math.round((1-book.price/book.originalPrice)*100):0;
+                const bookItem=document.createElement('div');
+                bookItem.className='book-item';
+                bookItem.innerHTML=`
+                <div class="book-cover">
+                    <span class="category-tag">${book.tag[0]}</span>
+                    <div class="tittle-preview">${book.tittle}</div>
+                    <div class="author-preview">by ${book.author}</div>
+                </div>
+                <div class="book-details">
+                    <h3 class="book-tittle">${book.tittle}</h3>
+                    <div class="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        ${book.author}
+                    </div>
+                    <p class="book-description">${book.description}</p>
+                    <div class="book-meta">
+                        <div class="book-rating">
+                            ${generateStars(book.rating)}
+                            <span class="count">${book.rating}(${book.reviewCount}reviews)</span>
+                        </div>
+                        <div>
+                            <span class="book-category">${book.category}</span>
+                        </div>
+                    </div>
+                    <div class="book-price">
+                        $${book.price.toFixed(2)}
+                        ${book.originalPrice ? 
+                            `<span class="original-price">$${book.originalPrice.toFixed(2)}</span>`:''}
+                            ${discount>0?`<span class="discount">-${discount}%</span>`:''}
+                    </div>
+                </div>
+                <div class="book-actions-column">
+                    <button class="btn-view-details" onclick="viewBook(${book.id})" style="margin-bottom:10px;">
+                        <i class="fas fa-eye"></i>
+                        View Details
+                    </button>
+                    <button class="btn-add-to-cart ${isInCart ? 'added':''}"
+                        onclick="addToCart(${book.id})"
+                        ${isInCart ? 'disabled':''}
+                        style="width:100%;">
+                        <i class="fas ${isInCart ? 'fa-check':'fa-cart-plus'}"></i>
+                        ${isInCart ? 'Added to Cart':'Add to Cart'}
+                    </button>
+                </div>
+                `;
+                listView.appendChild(bookItem);
+            });
+        }
+
+        function showNoResults()
+        {
+            const booksDisplay=document.getElementById('books-display');
+            booksDisplay.innerHTML=`
+                <div class="no-results">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Books Found</h3>
+                    <p>Try adjusting your filters or search criteria.</p>
+                    <button class="btn-primary" onclick="clearFilters()" style="margin-top:20px;">
+                        <i class="fas fa-filter-circle-xmark"></i>
+                        Clear All Filters
+                    </button>
+                </div>
+            `;
+        }
+
+        function generateStars()
+        {
+            let stars='';
+            const fullStars=Math.floor(rating);
+            const halfStar=rating%1>=0.5;
+
+            for(let i=0;i<fullStars;i++)
+            {
+                stars+='<i class="fas fa-star"></i>';
+            }
+            if(halfStar)
+            {
+                stars+='<i class="fas fa-star-half-alt"></i>';
+            }
+
+            const emptyStars=5-fullStars-(halfStar ? 1:0);
+            for(let i=0;i<emptyStars;i++)
+            {
+                stars+='<i class="fas-fa-star"></i>';
+            }
+
+            return stars;
+        }
+        function renderPagination()
+        {
+            const totalPages=Math.ceil(filteredBooks.length/booksPerPage);
+            const pagination=document.getElementById('pagination');
+
+            if(totalPages<=1)
+            {
+                pagination.innerHTML='';
+                return;
+            }
+
+            let paginationHTML='';
+
+            paginationHTML+=`
+                <button class="page-btn ${currentPage===1 ? 'disabled':''}"
+                    onclick="changePage(${currentPage-1})"${currentPage===1 ? 'disabled':''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+
+            let startPage=Math.max(1,currentPage-2);
+            let endPage=Math.min(totalPages,startPage+4);
+
+            if(endPage-startPage<4)
+            {
+                startPage=Math.max(1,endPage-4);
+            }
+            if(startPage>1)
+            {
+                paginationHTML+=`
+                    <button class="page-btn" onclick="changePage(1)">1</button>
+                    ${startPage>2 ? '<span class="page-dots">...</span>':''}
+                    `;
+            }
+
+            for(let i=startPage;i<=endPage;i++)
+            {
+                paginationHTML+=`
+                    <button class="pagr-btn ${currentPage===i ? 'active':''}"
+                        onclick="changePage(${i})">
+                        ${i}
+                    </button>
+                    `;
+            }
+
+            if(endPage<totalPages)
+            {
+                paginationHTML+=`
+                    ${endPage<totalPages-1?'<span class="page-dots">...</span>':''}
+                    <button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>
+                    `;
+            }
+
+            paginationHTML+=`
+                <button class="page-btn ${currentPage===totalPages ? 'disabled':''}"
+                    onclick="changePage(${currentPage+1})"${currentPage===totalPages?'disabled':''}>
+                    <i class=="fas fa-chevron-right"></i>
+                </button>
+                `;
+            pagination.innerHTML=paginationHTML;
+        }
+
+        function changePage(page)
+        {
+            const totalPages=Math.ceil(filteredBooks.length/booksPerPage);
+            if(page<1||page>totalPages) return;
+            currentPage=page;
+            renderBooks();
+            renderPagination();
+
+            document.querySelector('.results-header').scrollIntoView({behavior:'smooth'});
+        }
+
+        function viewBook(bookId)
+        {
+            const book=booksData.find(b=>b.id===bookId);
+            if(book)
+            {
+                window.location.href=`bookdetail.html?id=${bookId}`;
+            }
+        }
+
+        function addToCart(bookId)
+        {
+            const book=booksData.find(b=>b.id===bookId);
+            if(!book) return;
+            if(shoppingCart.some(item=>item.id===bookId))
+            {
+                alert('This book is already in your cart!');
+                return;
+            }
+
+            shoppingCart.push({
+                id:book.id,
+                tittle:book.tittle,
+                price:book.price,
+                quantity:1,
+                cover:`Book Cover : ${book.tittle}`
+            });
+
+            localStorage.setItem('bookverse_cart',JSON.stringify(shoppingCart));
+
+            updateCartCount();
+
+            if(currentView==='grid')
+            {
+                const button=document.querySelector(`#grid-view .btn-add-to-cart[onclick="addToCart(${bookId})"]`);
+                if(button)
+                {
+                   button.classList.add('added');
+                   button.innerHTML='<i class="fas fa-check"></i>Added';
+                   button.disabled=true; 
+                }
+            }
+            else
+            {
+                const button=document.querySelector(`#list-view .btn-add-to-cart[onclick="addToCart(${book.Id})"]`);
+                if(button)
+                {
+                   button.classList.add('added');
+                   button.innerHTML='<i class="fas fa-check"></i>Added to Cart';
+                   button.disabled=true; 
+                }
+            }
+
+            showNotification(`${book.tittle} added to cart!`);
+        }
+
+        function updateCartCount()
+        {
+            const cartCount=document.getElementById('cart-count');
+            cartCount.textContent=shoppingCart.length;
+        }
+
+        function showNotification()
+        {
+            const notification=document.createElement('div');
+            notification.style.cssText=`
+                position:fixed;
+                top:20px;
+                right:20px;
+                background:#4caf50;
+                color:white;
+                padding:15px 20px;
+                border-radius:8px;
+                box-shadow:0 4px 12px rgba(0,0,0,0.15);
+                z-index:1000;
+                display:flex;
+                align-items:center;
+                gap:10px;
+                animation:slideIn 0.3s ease;
+            `;
+            notification.innerHTML=`
+                <i class="fas fa-check-cirsle"></i>
+                <span>${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(()=>{
+                notification.style.animation='slideOut 0.3s ease;';
+                setTimeout(()=>{
+                    document.body.removeChild(notification);
+                },300);
+            },3000);
+
+            if(!document.getElementById('notification-styles'))
+            {
+                const style=document.createElement('style');
+                style.id='notification-style';
+                style.textContent=`
+                    @keyframe slideIn
+                    {
+                        from
+                        {
+                            trasform:translateX(100%);
+                            opacity:0;
+                        }
+                        to
+                        {
+                            transform:translateX(0);
+                            opacity:1;
+                        }
+                    }
+                    @keyframe slideOut{
+                        from{
+                            transform:translateX(0);
+                            opacity:1;
+                        }
+                        to{
+                            transform:translateX(0);
+                            opacity:1;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+        }
+    </script>
 </body>
 </html>
