@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Manage Orders - BookVerse Admin</title>
+    <link rel="stylesheet" href="adminStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        .data-table th { background: #f8fafc; font-weight: 600; color: #374151; }
+        .data-table tr:hover { background: #f9fafb; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 450px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+        .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-save { background: #0d47a1; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; }
+        .btn-cancel { background: #f3f4f6; color: #374151; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open" style="color: #0d47a1;"></i> 
+            <span>BookVerse</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="adminDashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="manageStaff.html"><i class="fas fa-user-tie"></i> Manage Staff</a></li>
+            <li><a href="manageMembers.html"><i class="fas fa-users"></i> Manage Members</a></li>
+            <li><a href="manageCategories.html"><i class="fas fa-layer-group"></i> Manage Categories</a></li>
+            <li><a href="manageProducts.html"><i class="fas fa-book"></i> Manage Books</a></li>
+            <li><a href="manageOrders.html" class="active"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+            <li><a href="salesReport.html"><i class="fas fa-chart-line"></i> Sales Report</a></li>
+            <li style="margin-top: auto; border-top: 1px solid #eee; padding-top: 10px;">
+                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <h2>Manage Orders</h2>
+            <div class="user-menu">
+                <span id="displayUsername" style="font-weight: 600;">Admin</span>
+                <div class="profile-img" style="background: #0d47a1; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%;">AD</div>
+            </div>
+        </header>
+
+        <div class="dashboard-view">
+            <div class="page-header">
+                <h1 class="page-title">Order History</h1>
+                <button onclick="openOrderModal()" class="btn-primary"><i class="fas fa-plus"></i> New Manual Order</button>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Total (RM)</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orderGrid">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px; color: #0d47a1;">Order Details</h2>
+            <form onsubmit="saveOrder(event)">
+                <input type="hidden" id="orderId">
+                
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="orderCustomer" required placeholder="">
+                </div>
+                
+                <div class="form-group">
+                    <label>Order Date</label>
+                    <input type="date" id="orderDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Items Summary (Description)</label>
+                    <textarea id="orderItems" rows="2" placeholder="e.g. 1x Python Book, 1x Web Design"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Amount (RM)</label>
+                    <input type="number" id="orderTotal" step="0.01" required placeholder="0.00">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="orderStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="closeOrderModal()" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-save">Save Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="adminScript.js"></script>
+</body>
+</html>
