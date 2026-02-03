@@ -43,6 +43,16 @@ document.addEventListener("DOMContentLoaded", function() {
         renderCategories();
     }
 
+    const orderGrid = document.getElementById("orderGrid");
+    if (orderGrid) {
+        renderOrders();
+    }
+
+    const salesChartCanvas = document.getElementById("salesChart");
+    if (salesChartCanvas) {
+        renderSalesReport();
+    }
+
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", handleLogin);
@@ -606,4 +616,186 @@ function deleteCategory(id) {
         localStorage.setItem('bookverse_categories', JSON.stringify(categories));
         renderCategories();
     }
+}
+
+/*orders function*/
+
+function renderOrders() {
+    const grid = document.getElementById("orderGrid");
+    if (!grid) return;
+
+    let orders = JSON.parse(localStorage.getItem('bookverse_orders'));
+
+    if (!orders) {
+        orders = [
+            { 
+                id: "ORD-1001", 
+                customer: "bryan", 
+                date: "2023-10-25", 
+                total: "128.80", 
+                status: "Pending",
+                items: "1x Digital Revolution, 1x Python Book"
+            },
+            { 
+                id: "ORD-1002", 
+                customer: "maine", 
+                date: "2023-10-24", 
+                total: "59.00", 
+                status: "Shipped",
+                items: "1x Web Design Mastery"
+            }
+        ];
+        localStorage.setItem('bookverse_orders', JSON.stringify(orders));
+    }
+
+    grid.innerHTML = "";
+
+    orders.forEach(order => {
+        let badgeColor = '#374151'; 
+        let badgeBg = '#f3f4f6';
+        if(order.status === 'Pending') { badgeColor = '#b45309'; badgeBg = '#fffbeb'; }
+        if(order.status === 'Shipped') { badgeColor = '#1d4ed8'; badgeBg = '#eff6ff'; }
+        if(order.status === 'Delivered') { badgeColor = '#15803d'; badgeBg = '#dcfce7'; }
+        if(order.status === 'Cancelled') { badgeColor = '#b91c1c'; badgeBg = '#fee2e2'; }
+
+        let rowHTML = `
+            <tr>
+                <td style="font-family: monospace; font-weight: bold;">${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.date}</td>
+                <td style="font-weight: bold;">RM ${order.total}</td>
+                <td>
+                    <span style="background: ${badgeBg}; color: ${badgeColor}; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                        ${order.status}
+                    </span>
+                </td>
+                <td>
+                    <button onclick="editOrder('${order.id}')" style="color: #2563eb; background: none; border: none; cursor: pointer; margin-right: 10px;" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button onclick="deleteOrder('${order.id}')" style="color: red; background: none; border: none; cursor: pointer;" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+        grid.innerHTML += rowHTML;
+    });
+}
+
+function openOrderModal() {
+    const modal = document.getElementById('orderModal');
+    
+    document.getElementById('orderId').value = "";
+    document.getElementById('orderCustomer').value = "";
+    document.getElementById('orderDate').value = new Date().toISOString().split('T')[0]; // Today's date
+    document.getElementById('orderItems').value = "";
+    document.getElementById('orderTotal').value = "";
+    document.getElementById('orderStatus').value = "Pending";
+
+    modal.querySelector('h2').textContent = "New Manual Order";
+    modal.style.display = 'flex';
+}
+
+function editOrder(id) {
+    let orders = JSON.parse(localStorage.getItem('bookverse_orders')) || [];
+    const order = orders.find(o => o.id === id);
+
+    if (order) {
+        document.getElementById('orderId').value = order.id;
+        document.getElementById('orderCustomer').value = order.customer;
+        document.getElementById('orderDate').value = order.date;
+        document.getElementById('orderItems').value = order.items || "";
+        document.getElementById('orderTotal').value = order.total;
+        document.getElementById('orderStatus').value = order.status;
+
+        const modal = document.getElementById('orderModal');
+        modal.querySelector('h2').textContent = "Edit Order Details";
+        modal.style.display = 'flex';
+    }
+}
+
+function saveOrder(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('orderId').value;
+    const customer = document.getElementById('orderCustomer').value;
+    const date = document.getElementById('orderDate').value;
+    const items = document.getElementById('orderItems').value;
+    const total = document.getElementById('orderTotal').value;
+    const status = document.getElementById('orderStatus').value;
+
+    let orders = JSON.parse(localStorage.getItem('bookverse_orders')) || [];
+
+    if (id) {
+        const index = orders.findIndex(o => o.id === id);
+        if (index !== -1) {
+            orders[index] = { id, customer, date, total, status, items };
+            alert(`Order ${id} updated!`);
+        }
+    } else {
+        const newId = "ORD-" + Math.floor(1000 + Math.random() * 9000); // Generate Random ID
+        orders.push({ id: newId, customer, date, total, status, items });
+        alert("New order created successfully!");
+    }
+
+    localStorage.setItem('bookverse_orders', JSON.stringify(orders));
+    closeOrderModal();
+    renderOrders();
+}
+
+function deleteOrder(id) {
+    if(confirm(`Are you sure you want to delete Order ${id}?`)) {
+        let orders = JSON.parse(localStorage.getItem('bookverse_orders')) || [];
+        orders = orders.filter(o => o.id !== id);
+        localStorage.setItem('bookverse_orders', JSON.stringify(orders));
+        renderOrders();
+    }
+}
+
+function closeOrderModal() {
+    document.getElementById('orderModal').style.display = 'none';
+}
+
+/*sales report function*/
+
+function renderSalesReport() {
+    let orders = JSON.parse(localStorage.getItem('bookverse_orders')) || [];
+    
+    let totalRevenue = 0;
+    let pendingCount = 0;
+
+    orders.forEach(order => {
+        let amount = parseFloat(order.total.toString().replace('RM', '')); 
+        totalRevenue += amount;
+
+        if (order.status === 'Pending') {
+            pendingCount++;
+        }
+    });
+
+    document.getElementById('totalRevenue').textContent = "RM " + totalRevenue.toFixed(2);
+    document.getElementById('totalOrders').textContent = orders.length;
+    document.getElementById('pendingOrders').textContent = pendingCount;
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Revenue (RM)',
+                data: [1200, 1900, 3000, 500, 2000, totalRevenue], // Last one is real total!
+                backgroundColor: '#0d47a1',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
 }
