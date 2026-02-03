@@ -19,7 +19,7 @@ if(isset($_POST['fullname'])){
     $sql="insert into `users` (fullname, username, email, password) values ('$fullname', '$username', '$email', '$hashed_password')";
     
     if(mysqli_query($conn,$sql)){
-        header('Location: signup_success.html');
+        header('Location: signup_success.php');
         exit();
     } else{
         echo "Error: ". mysqli_error($conn);
