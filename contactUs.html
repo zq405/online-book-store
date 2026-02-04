@@ -75,10 +75,11 @@
         <h1>Contact BookVerse</h1>
 
         <form id="contactForm">
-            <input typr="text" placeholder="Your Name" required>
+            <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Your Email" required>
             <textarea rows="4" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
+
         </form>
 
         <div class="map">
@@ -95,6 +96,8 @@
         <p><strong>Address:</strong>Persiaran Multimedia, 63100 Cyberjaya, Selangor</p>
         <p><strong>Phone:</strong> +60 12 345 6789</p>
         <p><strong>Email:</strong> sky@bookverse.com</p>
+
+        <button type="button" class="back-btn" onclick="goBack()">← Back to Home</button>
     </div>
 
     <script>
@@ -103,6 +106,10 @@
             alert("Thank you for contacting BookVerse! We will get back to you shortly.");
             this.reset();
         });
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>
