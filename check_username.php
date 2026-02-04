@@ -1,17 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-// Direct database connection
-$host="localhost";
-$user="root";
-$pass="";
-$db="phpregistrationdetail";
-
-$conn=mysqli_connect($host,$user,$pass,$db);
-if(!$conn){
-    echo json_encode(['available' => false, 'error' => 'Database connection failed: '.mysqli_connect_error()]);
-    exit;
-}
+include 'connect.php';
 
 $username = '';
 if(isset($_GET['username'])) $username = $_GET['username'];
