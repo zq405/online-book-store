@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - BookVerse</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color:#f5f7fa;
+        }
+        .about-box{
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        h1{
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2{
+            color: #3498db;
+            margin: 25px 0 15px;
+            padding-bottom: 5px;
+            border-right: 2px solid #ecf0f1;
+        }
+        p {
+            line-height: 1.6;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+        .subtitle{
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .highlight{
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+        .founder-section{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .founder-img{
+            width: 120px;
+            height: 120px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        .founder-info h3{
+            color:#2c3e50;
+            margin-bottom: 0 0 5px;
+        }
+        .founder-title{
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .team-section{
+            margin-top: 30px 0;
+        }
+        .team-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .team-member{
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .member-img{
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .member-name {
+            color: #2c3e50;
+            margin: 0 0 5px;
+        }
+        .member-role {
+            color: #3498db;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .mission-box, .vision-box {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-box">
+        <h1>About BookVerse</h1>
+        <div class="subtitle">A New Chapter in Online Book Retail - Established 2025</div>
+
+        <h2>Our Beginning</h2>
+        <p>Welcome to <strong>BookVerse</strong> - a fresh, innovative online bookstore that launched in early 2025. Born from a passion for literature and a vision for the future of reading, we're excited to begin our journey with you.</p>
+        <p>In today's digital age, we recognized a need for a personalized, user-friendly platform that connects readers with their next favorite book. While we may be new to the scene, our commitment to quality and customer satisfaction runs deep.</p>
+
+        <div class="highlight">
+            <p><strong>Our Promise:</strong> Every book in our collection is carefully selected. Every customer interaction is valued. We're not just selling books - we're building a community of readers.</p>
+        </div>
+
+        <div class="founder-section">
+            <div class="founder-img">👨‍💼</div>
+            <div class="founder-info">
+                <h3>Mr. Lee Chong Wei</h3>
+                <div class="founder-title">Founder & CEO</div>
+                <p>"After 10 years in the publishing industry, I saw an opportunity to create something special - a bookstore that combines traditional values with modern technology. BookVerse is that dream realized."</p>
+                <p><strong>Education:</strong> MBA in Business Management, Bachelor's in Literature</p>
+                <p><strong>Vision:</strong> To make BookVerse the #1 online bookstore in Malaysia by 2028</p>
+            </div>
+        </div>
+
+    <div class="mission-vision">
+        <h2>Our Mission</h2>
+        <ul>
+            <li>To provide a seamless online shopping experience for book lovers.</li>
+            <li>To curate a diverse selection of books that cater to all interests and age groups.</li>
+            <li>To foster a community where readers can share their love for books.</li>
+        </ul>
+        <h2>Our Vision</h2>
+        <ul>
+            <li>To become the leading online bookstore in Malaysia by 2028.</li>
+            <li>To innovate continuously, enhancing our platform with the latest technology.</li>
+            <li>To promote literacy and a love for reading across the nation.</li>
+        </ul>
+    </div>
+
+    <div class="team-section">
+        <h2>Our Founding Team</h2>
+        <p>Though small, our team is mighty! Each member brings unique expertise to build BookVerse from the ground up.</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-img">👩‍💻</div>
+                <h4 class="member-name">Sky</h4>
+                <div class="member-role">Market Director</div>
+                <p>Former Marketing lead ai majpr retailer</p>
+            </div>
+            <div class="team-member">
+                <div class="member-img">👨‍💻</div>
+                <h4 class="member-name">Chin</h4>
+                <div class="member-role">Tech Lead</div>
+                <p>Full-stack developer, 5+ years experience</p>
+            </div>
+            <div class="team-member">
+                <div class="member-img">👩‍🎨</div>
+                <h4 class="member-name">Bryan</h4>
+                <div class="member-role">Content Curator</div>
+                <p>Former librarian, literature graduate</p>
+        </div>
+    </div>
+
+        <h2>📍 Connect With Us</h2>
+        <p><strong>Office Address:</strong> Persiaran Multimedia, 63100 Cyberjaya, Selangor</p>
+        <p><strong>Contact:</strong>+60 12 345 6789 | sky@bookverse.com</p>
+        <p><strong>Bussiness Hours:</strong> Monday-Friday: 9am-6pm & Saturday: 10:00 AM - 4:00 PM</p>
+
+        <p style="margin-top: 30px; font-style: italic; color: #7f8c8d;">Thank you for being part of our story from the beginning. Together, let's turn the page to a new chapter in reading!</p>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="back-btn">← Return to Homepage</a>
+            <a href="contactUs.html" class="back-btn" style="background: #2c3e50; margin-left: 10px;">Contact Us →</a>
+        </div>
+    </div>
+</body>
+</html>
