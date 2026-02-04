@@ -29,3 +29,4 @@ if(!$res){
 } else {
     echo json_encode(['available' => true]);
 }
+?>
