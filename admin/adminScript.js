@@ -631,7 +631,7 @@ function renderOrders() {
             { 
                 id: "ORD-1001", 
                 customer: "bryan", 
-                date: "2023-10-25", 
+                date: "2026-01-25", 
                 total: "128.80", 
                 status: "Pending",
                 items: "1x Digital Revolution, 1x Python Book"
@@ -639,7 +639,7 @@ function renderOrders() {
             { 
                 id: "ORD-1002", 
                 customer: "maine", 
-                date: "2023-10-24", 
+                date: "2026-01-27", 
                 total: "59.00", 
                 status: "Shipped",
                 items: "1x Web Design Mastery"
