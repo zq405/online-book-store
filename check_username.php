@@ -1,10 +1,15 @@
 <?php
 header('Content-Type: application/json');
-include 'connect.php';
 
-// Check if connection failed
+// Direct database connection
+$host="localhost";
+$user="root";
+$pass="";
+$db="phpregistrationdetail";
+
+$conn=mysqli_connect($host,$user,$pass,$db);
 if(!$conn){
-    echo json_encode(['available' => false, 'error' => 'Database connection failed']);
+    echo json_encode(['available' => false, 'error' => 'Database connection failed: '.mysqli_connect_error()]);
     exit;
 }
 
