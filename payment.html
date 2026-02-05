@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - BookVerse</title>
+    <style>
+        body{
+            font-family: Arial;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .payment{
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+        }
+        h1{
+            color: #0d47a1;
+            margin-bottom: 20px;
+        }
+        .order-info{
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .info-row{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .total{
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .payment-methods{
+            margin: 20px 0;
+        }
+        .method{
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .method.selected{
+            border-color: #0d47a1;
+            background: #e3f2fd;
+        }
+        .card-details{
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+        input{
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button{
+            padding: 12px;
+            width: 100%;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .pay-btn{
+            background: #34c039;
+            color: white;
+        }
+        .back-btn{
+            background: #666;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment">
+        <h1>Payment</h1>
+        
+        <div class="order-info">
+            <h3>Order Details</h3>
+            <div id="paymentOrderInfo"></div>
+            <div class="info-row total">
+                <span>Amount to Pay:</span>
+                <span>RM <span id="paymentTotal">0.00</span></span>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h3>Select Payment Method</h3>
+            
+            <div class="method" onclick="selectMethod('credit')">
+                <input type="radio" name="payment" id="credit"> 
+                <label for="credit">💳 Credit/Debit Card</label>
+            </div>
+            
+            <div class="method" onclick="selectMethod('online')">
+                <input type="radio" name="payment" id="online">
+                <label for="online">🏦 Online Banking</label>
+            </div>
+            
+            <div class="method" onclick="selectMethod('cod')">
+                <input type="radio" name="payment" id="cod">
+                <label for="cod">💰 Cash on Delivery</label>
+            </div>
+        </div>
+        
+        <div id="cardDetails" class="card-details">
+            <h4>Card Details</h4>
+            <input type="text" placeholder="Card Number (16 digits)" maxlength="16" id="cardNumber">
+            <input type="text" placeholder="Cardholder Name" id="cardName">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" placeholder="MM/YY" id="expiry" style="flex: 1;">
+                <input type="text" placeholder="CVV" maxlength="3" id="cvv" style="width: 80px;">
+            </div>
+        </div>
+        
+        <button onclick="processPayment()" class="pay-btn" id="payBtn">Pay Now</button>
+        <button onclick="goBack()" class="back-btn">← Back to Checkout</button>
+        
+        <div id="successMessage" style="display:none; text-align:center; padding:20px; background:#d4edda; color:#155724; border-radius:4px; margin-top:20px;">
+            <h3>✅ Payment Successful!</h3>
+            <p>Thank you for your order!</p>
+            <p>Order ID: <strong id="orderId">BOOK-12345</strong></p>
+            <button onclick="goToDashboard()" style="background:#0d4497;color:white;margin-top:10px;">View Order</button>
+        </div>
+    </div>
+
+    <script>
+        function getOrder() 
+        {
+            const data = localStorage.getItem("bookverse_order");
+            return data ? JSON.parse(data) : null;
+        }
+        
+        function showOrderInfo(){
+            const order = getOrder();
+            const infoDiv = document.getElementById("paymentOrderInfo");
+            const totalSpan = document.getElementById("paymentTotal");
+            
+            if (!order)
+            {
+                infoDiv.innerHTML = '<p>No order found</p>';
+                totalSpan.textContent = "0.00";
+                return;
+            }
+            
+            infoDiv.innerHTML = 
+            `
+                <div class="info-row"><span>Name:</span><span>${order.name || 'N/A'}</span></div>
+                <div class="info-row"><span>Email:</span><span>${order.email || 'N/A'}</span></div>
+                <div class="info-row"><span>Phone:</span><span>${order.phone || 'N/A'}</span></div>
+                <div class="info-row"><span>Address:</span><span>${order.address || 'N/A'}</span></div>
+                <div class="info-row"><span>City:</span><span>${order.city || 'N/A'}</span></div>
+                <div class="info-row"><span>Postal Code:</span><span>${order.postcode || 'N/A'}</span></div>
+            `;
+            
+            totalSpan.textContent = order.total || "0.00";
+        }
+        
+        function selectMethod(method){
+            document.querySelectorAll('input[name="payment"]').forEach(radio => 
+            {
+                radio.checked = false;
+            });
+            document.getElementById(method).checked = true;
+            
+            document.querySelectorAll('.method').forEach(el => 
+            {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            const cardDetails = document.getElementById('cardDetails');
+            if (method === 'credit') {
+                cardDetails.style.display = 'block';
+            } else {
+                cardDetails.style.display = 'none';
+            }
+        }
+        
+        function processPayment(){
+            const order = getOrder();
+            if (!order) 
+            {
+                alert('No order found!');
+                return;
+            }
+            const selectedMethod = document.querySelector('input[name="payment"]:checked');
+            if (!selectedMethod)
+            {
+                alert('Please select a payment method!');
+                return;
+            }
+            
+            if (selectedMethod.id === 'credit')
+            {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardName = document.getElementById('cardName').value;
+                const expiry = document.getElementById('expiry').value;
+                const cvv = document.getElementById('cvv').value;
+                
+                if (!cardNumber || !cardName || !expiry || !cvv)
+                {
+                    alert('Please fill in all card details!');
+                    return;
+                }
+                
+                if (cardNumber.length !== 16)
+                {
+                    alert('Card number must be 16 digits!');
+                    return;
+                }
+                
+                if (cvv.length !== 3)
+                {
+                    alert('CVV must be 3 digits!');
+                    return;
+                }
+            }
+            
+            const orderId = 'BOOK-' + Math.floor(10000 + Math.random() * 90000);
+            
+            const completeOrder = {
+                ...order,
+                orderId: orderId,
+                paymentMethod: selectedMethod.id,
+                paymentStatus: 'completed',
+                paymentDate: new Date().toISOString()
+            };
+            
+            localStorage.setItem('bookverse_complete_order', JSON.stringify(completeOrder));
+
+            localStorage.removeItem('bookverse_cart');
+            localStorage.removeItem('bookverse_order');
+            
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('payBtn').style.display = 'none';
+        }
+        
+        function goBack() 
+        {
+            window.location.href = 'checkout.html';
+        }
+        function goToDashboard() 
+        {
+            window.location.href = 'dashboard.html';
+        }
+        document.addEventListener('DOMContentLoaded', function() 
+        {
+            showOrderInfo();
+            
+            if (!getOrder()) 
+            {
+                setTimeout(() => 
+                {
+                    alert('No order found. Returning to checkout...');
+                    goBack();
+                }, 
+                1000);
+            }
+        });
+    </script>
+</body>
+</html>
