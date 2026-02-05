@@ -220,7 +220,7 @@ const booksData=
             document.getElementById('category').value="";
             document.getElementById('author').value="";
             document.getElementById('rating').value='0';
-            document.getElementById('price-range').value='10';
+            document.getElementById('price-range').value='40';
             document.getElementById('price-display').textContent='Up to $40';
             document.getElementById('sort-by').value='relevance';
 
@@ -290,7 +290,7 @@ const booksData=
                         ${discount>0?`<span class="discount">-${discount}%</span>`:''}
                     </div>
                     <div class="book-actions">
-                        <button class="btn-view-details" onclick="viewBooks(${book.id})">
+                        <button class="btn-view-details" onclick="viewBook(${book.id})">
                             <i class="fas fa-eye"></i>
                             View Details
                         </button>
@@ -481,7 +481,7 @@ const booksData=
             const book=booksData.find(b=>b.id===bookId);
             if(book)
             {
-                window.location.href=`bookdetail.html?id=${bookId}`;
+                window.location.href=`bookdetail${bookId}.html?id=${bookId}`;
             }
         }
 

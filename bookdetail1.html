@@ -6,958 +6,7 @@
     <title>Book Details - BookVerse</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        *
-        {
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-        body
-        {
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color:#333;
-            background-color: #f8fbff;
-        }
-
-        .container
-        {
-            max-width: 1200px;
-            margin:0 auto;
-            padding:20px;
-        }
-
-        .breadcrumb
-        {
-            margin: 20px 0 30px 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .breadcrumb a
-        {
-            color: #0d47a1;
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover
-        {
-            text-decoration: underline;
-        }
-
-        .breadcrumb i
-        {
-            margin: 0 8px;
-            color: #999;
-            font-size: 0.8rem;
-        }
-
-        .book-detail-container
-        {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        @media(max-width:992px)
-        {
-            .book-detail-container
-            {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        .book-cover-section
-        {
-            background: white;
-            border-radius:12px;
-            box-shadow:0 4px 15px rgba(13,71,161,0.1);
-            padding:20px;
-            position:sticky;
-            top:100px;
-        }
-
-        .book-cover-main
-        {
-            width: 100%;
-            height:400px;
-            background: linear-gradient((135deg,#81d4fa 0%,#29b6f6 100%));
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color:white;
-            text-align: center;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .book-cover-main .category-tag
-        {
-            background: rgba(255,255,255,0.2);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            backdrop-filter: blur(5px);
-        }
-
-        .book-cover-main .tittle
-        {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 15px 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .book-cover-main .author
-        {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-style: italic;
-        }
-
-        .book-badges
-        {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .badges
-        {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .badge.bestseller
-        {
-            background: linear-gradient(135deg,#ff9800 0%,#f57c00 100%);
-            color: white;
-        }
-
-        .badge.new
-        {
-            background: linear-gradient(135deg,#4caf50 0%,#2e7d32 100%);
-            color: white;
-        }
-
-        .badge.discount
-        {
-            background: linear-gradient(135deg,#ff5252 0%,#d32f2f 100%);
-            color:white;
-        }
-
-        .badge.format
-        {
-            background: #e3f2fd;
-            color: #0d47a1;
-        }
-
-        .book-price-section
-        {
-            background: #f8fbff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #e0f2fe;
-        }
-
-        .price-main
-        {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #0d47a1;
-            margin-bottom: 10px;
-        }
-
-        .price-original
-        {
-            font-size: 1.2rem;
-            color: #999;
-            text-decoration: line-through;
-            margin-right: 10px;
-        }
-
-        .price-discount
-        {
-            background: #ff5252;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .book-aciton
-        {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .btn-add-to-cart
-        {
-            background: linear-gradient(135deg,#0d47a1 0%,#1565c0 100%);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-add-to-cart:hover
-        {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13,71,161,0.2);
-        }
-
-        .btn-add-to-cart.added
-        {
-            background: linear-gradient(135deg,#4caf50 0%,#2e7d32 100%);
-        }
-
-        .btn-buy-now
-        {
-            background: white;
-            color: #0d47a1;
-            border: 2px solid #0d47a1;
-            padding: 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-buy-now:hover
-        {
-            background: #0d47a1;
-            color: white;
-        }
-
-        .book-meta-info
-        {
-            background: #f8fbff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #e0f2fe;
-        }
-
-        .meta-item
-        {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e0f2fe;
-        }
-
-        .meta-item:last-child
-        {
-            border-bottom: none;
-        }
-
-        .meta-label
-        {
-            color: #666;
-        }
-
-        .meta-value
-        {
-            color: #333;
-            font-weight: 600;
-        }
-
-        .book-info-section
-        {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(13,71,161,0.1);
-            padding: 30px;
-        }
-
-        .book-header
-        {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e3f2fd;
-        }
-
-        .book-tittle
-        {
-            font-size: 2rem;
-            color: #0d47a1;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .book-author
-        {
-            font-size:1.2rem;
-            color: #666;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .book-author i
-        {
-            color: #ff9800;
-        }
-
-        .book-rating-overview
-        {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .rating-stars
-        {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #ffc107;
-            font-size: 1.2rem;
-        }
-
-        .rating-number
-        {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .rating-count
-        {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .btn-write-review
-        {
-            background: white;
-            color: #0d47a1;
-            border: 2px solid #0d47a1;
-            padding: 8px 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-write-review:hover
-        {
-            background: #0d47a1;
-            color: white;
-        }
-
-        .book-description
-        {
-            margin: 30px 0;
-        }
-
-        .section-tittle
-        {
-            font-size: 1.3rem;
-            color: #0d47a1;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e3f2fd;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .book-description p
-        {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .book-features
-        {
-            margin: 30px 0;
-        }
-
-        .features-grid
-        {
-            display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .feature-item
-        {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: #f8fbff;
-            border-radius: 8px;
-            border-left: 4px solid #0d47a1;
-        }
-
-        .feature-icon
-        {
-            font-size: 1.5rem;
-            color: #0d47a1;
-            width: 40px;
-            height: 40px;
-            background: #e3f2fd;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-text
-        {
-            flex: 1;
-        }
-
-        .feature-tittle
-        {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .feature-desc
-        {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .reviews-section
-        {
-            margin: 40px 0;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(13,71,161,0.1);
-        }
-
-        .reviews-header
-        {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .review-summary
-        {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .average-rating
-        {
-            text-align: center;
-            min-width: 120px;
-        }
-
-        .average-rating-number
-        {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #0d47a1;
-            line-height: 1;
-        }
-
-        .average-rating-stars
-        {
-            color: #ffc107;
-            font-size: 1.2rem;
-            margin: 5px 0;
-        }
-
-        .rating-bars
-        {
-            flex: 1;
-        }
-        .rating-bar
-        {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        .rating-label
-        {
-            width: 80px;
-            font-size: 0.9rem;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .rating-bar-container
-        {
-            flex: 1;
-            height: 8px;
-            background: #e0f2fe;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .rating-bar-fill
-        {
-            height: 100%;
-            background: linear-gradient(135deg,#ffc107 0%,#ff9800 100%);
-        }
-
-        .review-list
-        {
-            margin-top: 30px;
-        }
-
-        .review-item
-        {
-            padding: 25px;
-            border-bottom: 1px solid #e0f2fe;
-        }
-
-        .review-item:last-child
-        {
-            border-bottom: none;
-        }
-
-        .reviews-header
-        {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .reviewer-info
-        {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .reviewer-avatar
-        {
-            width: 50px;
-            height: 50px;
-            background: #e3f2fd;
-            color: #0d47a1;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .reviewer-name
-        {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .review-date
-        {
-            font-size: 0.85rem;
-            color: #999;
-        }
-
-        .review-rating
-        {
-            color: #ffc107;
-            font-size: 1rem;
-        }
-
-        .review-content
-        {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .review-actions
-        {
-            display: flex;
-            gap: 15px;
-        }
-
-        .review-action
-        {
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .review-action:hover
-        {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .review-form
-        {
-            margin-top: 40px;
-            padding: 25px;
-            background: #f8fbff;
-            border-radius: 8px;
-            border: 1px solid #e0f2fe;
-        }
-
-        .form-group
-        {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label
-        {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #0d47a1;
-        }
-
-        .rating-input
-        {
-            display: flex;
-            gap: 5px;
-            font-size: 1.5rem;
-            color: #e0e0e0;
-        }
-
-        .rating-input i
-        {
-            cursor:pointer;
-            transition: color 0.2s;
-        }
-
-        .rating-input i:hover
-        .rating-input i.hovered
-        {
-            color: #ffc107;
-        }
-
-        .rating-input i.selected
-        {
-            color: #ffc107;
-        }
-
-        .form-control
-        {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0f2fe;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-control:focus
-        {
-            outline: none;
-            border-color: #0d47a1;
-            box-shadow: 0 0 0 3px rgba(13,71,161,0.1);
-        }
-
-        textarea.form-control
-        {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-actions
-        {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-        }
-
-        .related-books-section
-        {
-            margin: 40px 0;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(13,71,161,0.1);
-        }
-
-        .related-books-grid
-        {
-            display: grid;
-            grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .related-book-card
-        {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(13,71,161,0.08);
-            transition: all 0.3s ease;
-        }
-
-        .related-book-card:hover
-        {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(13,71,161,0.15);
-        }
-
-        .related-book-cover
-        {
-            width:100%;
-            height: 180px;
-            background: linear-gradient(135deg,#81d4fa 0%,#29b6f6 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-weight: 600;
-        }
-
-        .related-book-info
-        {
-            padding: 15px;
-        }
-
-        .related-book-tittle
-        {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #0d47a1;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-
-        .related-book-author
-        {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .related-book-price
-        {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0d47a1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .btm-view-related
-        {
-            background: #0d47a1;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-view-related:hover
-        {
-            background: #1565c0;
-        }
-
-        @media(max-width:768px)
-        {
-            .book-detail-container
-            {
-                gap: 20px;
-            }
-            .book-cover-section
-            {
-                position: static;
-            }
-            .book-cover-main
-            {
-                height: 300px;
-            }
-            .book-tittle
-            {
-                font-size: 1.5rem;
-            }
-            .price-main
-            {
-                font-size: 1.8rem;
-            }
-            .reviews-header
-            {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            .review-summary
-            {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .rating-bars
-            {
-                width: 100%;
-            }
-            .related-books-grid
-            {
-                grid-template-columns: repeat(auto-fill,minmax(170px,1fr));
-            }
-        }
-
-        @media(max-width:576px)
-        {
-            .container
-            {
-                padding: 15px;
-            }
-            .book-info-section,.reviews-section,.related-books-section
-            {
-                padding: 20px;
-            }
-            .book-actions
-            {
-                flex-direction: column;
-            }
-            .features-grid
-            {
-                grid-template-columns: 1fr;
-            }
-            .review-header
-            {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .form-actions
-            {
-                flex-direction: column;
-            }
-            .related-books-grid
-            {
-                grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-            }
-        }
-
-        .loading
-        {
-            text-align: center;
-            padding: 40px;
-            color: #0d47a1;
-            font-size: 1.1rem;
-        }
-        .loading i
-        {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin
-        {
-            0%{transform: rotate(0deg);}
-            100%{transform: rotate(360deg);}
-        }
-
-        .notification
-        {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4caf50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn
-        {
-            from
-            {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to
-            {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOut
-        {
-            from
-            {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to
-            {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="bookdetail.css">
 </head>
 <body>
     <nav>
@@ -999,8 +48,195 @@
             <div class="book-badges" id="book-badged"></div>
             <div class="book-price-section">
                 <div class="price-main">
-                    <span class="price-original" id="discount-percent" style="display: none;">-0%</span>
+                    <span class="price-original" id="discount-percent" style="display: none;">$0.00</span>
                     <span id="current-price">$0.00</span>
-                    <span class="">
+                    <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                </div>
+                <div class="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+            </div>
+            <div class="book-actions">
+                <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                    <i class="fas fa-cart-plus"></i>
+                    Add to cart
+                </button>
+                <button class="btn-buy-now" onclick="buyNow()">
+                    <i class="fas fa-bolt"></i>
+                    Buy Now
+                </button>
+            </div>
+            <div class="book-meta-info">
+                <div class="meta-item">
+                    <span class="meta-label">Pages:</span>
+                    <span class="meta-value" id="meta-pages">0</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Publisled:</span>
+                    <span class="meta-value" id="meta-published">2024</span>
+                <div class="meta-item">
+                    <span class="meta-label">ISBN:</span>
+                    <span class="meta-value" id="meta-isbn">978-0-0000-0</span> 
+                </div>
+            </div>
+        </div>
+
+        <div class="book-info-section">
+            <div class="book-header">
+                <h1 class="book-tittle" id="book-tittle">The Digital Revolution</h1>
+                <div class="book-author" id="book-author">
+                    <i class="fas fa-user-pen"></i>
+                    <span>by John Smith</span>
+                </div>
+                <div class="book-rating-overview">
+                    <div class="rating-stars" id="rating-stars"></div>
+                    <div class="rating-number" id="rating-number">0.0</div>
+                    <div class="rating-count" id="rating-count">(0 reviews)</div>
+                    <button class="btn-write-review" onclick="scrollToReviewForm()">
+                        <i class="fas fa-pen"></i>
+                        Write a Review
+                    </button>
+                </div>
+            </div>
+            <div class="book-description">
+                <h3 class="section-tittle">
+                    <i class="fas fa-book-open"></i>
+                    Description
+                </h3>
+                <div id="book-description"></div>
+            </div>
+            <div class="book-features">
+                <h3 class="section-tittle">
+                    <i class="fas fa-star"></i>
+                    Key Features
+                </h3>
+                <div class="features-grid" id="features-grid"></div>
+            </div>
+            <div class="book-toc" style="margin: 30px 0;">
+                <h3 class="section-tittle">
+                    <i class="fas fa-list"></i>
+                    Table of Contents
+                </h3>
+                <div id="table-contents" style="color: #555;line-height: 1.8"></div>
+            </div>
+            <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                <h3 class="section-tittle">
+                    <i class="fas-fa-user"></i>
+                    About the Author
+                </h3>
+                <div id="author-bio" style="color: #555;line-height: 1.8;"></div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+            <div class="review-list" id="review-list"></div>
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:1,
+            tittle:"The Digital Revolution",
+            author:"John Smith",
+            description:`
+            <p>The Digital Revolution is a comprehensive guide to understanding how digital transformation is changing business and societies worldwide. This book provides pratical insights into the technologies driving change and offers strategies for adapting to the new digital landscape.</p>
+            <p>In this groundbreaking work, John Smith explores the impact of artificial intelligence, blockchain, IoT and other disruption technologies. Through case studies and real-world examples, he demostrates how organizations can leverage these technologies to gain competitive advantage.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>The evolution of digital transformation in traditional businesses</li>
+                <li>Strategies for digital transformation in traditional businesses</li>
+                <li>Ethical considerations in the digital age</li>
+                <li>Future trends and predictions for the next decade</li>
+            </ul>
+            <p>Whether you're a business leader, technology enthusiast or student, The Digital Revolutionprovides valuable insights into one of the most significant transformatoins of our time.</p>`,
+            price:9.90,
+            originalPrice:14.99, 
+            rating:4.8, 
+            reviewCount:248,
+            page:320,
+            publishDate:"2024-01-15",
+            isbn:978-1-234567-89-0,
+            isBestseller:true,
+            isNew:false,
+            category:"technology",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Comprehensive Coverage",
+                    description:"Covers all major aspects of digital transformatino"
+                },
+                {
+                    
+                }
+            ]
+        }
+    </script>
+
 </body>
 </html>
