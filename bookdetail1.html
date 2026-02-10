@@ -48,11 +48,11 @@
             <div class="book-badges" id="book-badged"></div>
             <div class="book-price-section">
                 <div class="price-main">
-                    <span class="price-original" id="discount-percent" style="display: none;">$0.00</span>
+                    <span class="price-original" id="original-price" style="display: none;">$0.00</span>
                     <span id="current-price">$0.00</span>
                     <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
                 </div>
-                <div class="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
             </div>
             <div class="book-actions">
                 <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
@@ -199,7 +199,7 @@
     </div>
     <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
     <script>
-        const booksData=
+        const bookData=
         {
             id:1,
             tittle:"Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence",
@@ -331,89 +331,8 @@
                 }
             ]
         };
-
-        let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
-        let userReviews=[...booksData.reviews];
-
-        document.addEventListener('DOMContentLoaded',function()
-        {
-            const urlParams=new URLSearchParams(window.location.search);
-            const bookID=urlParams.get('id')||1;
-            loadBookData(booksData);
-            updateCartCount();
-            setupRatingInput();
-        });
-
-        function loadBookData(book)
-        {
-            document.getElementById('book-tittle').textContent=book.tittle;
-            document.getElementById('cover-tittle').textContent=book.tittle;
-            document.getElementById('breadcrumb-tittle').textContent=book.tittle;
-            document.getElementById('book-author').innerHTML=`<i class="fas fa-user-pen"></i>${book.author}`;
-            document.getElementById('cover-author').textContent=`by ${book.author}`;
-            docuemnt.getElementById('cover-category').textContent=book.category;
-            document.getElementById('book-description').innerHTML=book.description;
-
-            const currentPrice=document.getElementById('current-price');
-            const originalPrice=document.getElementById('original-price');
-            const discountPercent=document.getElementById('dicount-price');
-            const priceSave=document.getElementById('price-save');
-            currentPrice.textContent=`$${book.price.toFixed(2)}`;
-
-            if(book.originalPrice)
-            {
-                const discount=Math.rounf((1-book.price/book.originalPrice)*100);
-                const saveAmount=book.originalPrice-book.price;
-                originalPrice.textContent=`$${book.originalPrice.toFixed(2)}`;
-                originalPrice.style.display='inline';
-                discountPercent.textContent=`-${discount}%`;
-                discountPercent.style.display='inline';
-                priceSave.textContent=`Save $${saveAmount.toFixed(2)}`;
-                priceSave.style.display='block';
-            }
-
-            document.getElementById('rating-number').textContent=book.rating;
-            document.getElementById('rating-count').textContent=`(${book.reviewCount}reviews)`;
-            document.getElementById('average-rating').textContent=book.rating;
-            document.getElementById('total-review-count').textContent=`${book.reviewCount}reviews`;
-
-            generateStars('rating-stars',book.rating);
-            generateStars('average-rating-stars',book.rating);
-
-            generateRatingBars();
-
-            const badgesContainer=document.getElementById('book-badges');
-            badgesContainer.innerHTML='';
-            if(book.isBestseller)
-            {
-                const badge=document.vreateElement('span');
-                badge.className='badge bestseller';
-                badge.innerHTML='<i class="fas fa-crown"></i>Bestseller';
-                nadgesContainer.appendChild(badge);
-            }
-            if(book.isNew)
-            {
-                const badge=document.createElement('span');
-                badge.className='badge new';
-                badge.innerHTML='<i class="fas fa-star"></i>New Release';
-                badgeContainer.appendChild(badge);
-            }
-            if(book.originalPrice)
-            {
-                const badge=document.createElement('span');
-                badge.className='badge discount';
-                const discount=Math.round((1-book.price/book.originalPrice)*100);
-                badge.innerHTML=`<i class="fas fa-tag"></i>${dicount}% OFF`;
-                badgesContainer.appendChild(badge);
-            }
-            const formatBadge=document.createElement('span');
-            formatBadge.className='badge format';
-            formatBadge.innerHTML=`<i class="fas fa-file"></i>${book.format.split('')[0]}`;
-            badgesContainer.appendChild(formatBadge);
-
-            
-        }
     </script>
+    <script src="bookdetail.js"></script>
 
 </body>
 </html>
