@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Education</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Education</span>
+                    <div class="tittle" id="cover-tittle">How Children Succeed: Grit, Curiosity, and the Hidden Power of Character</div>
+                    <div class="author" id="cover-author">by Paul Tough</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2012</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9780547564654</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">How Children Succeed: Grit, Curiosity, and the Hidden Power of Character</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Paul Tough</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:6,
+            tittle:"How Children Succeed: Grit, Curiosity, and the Hidden Power of Character",
+            author:"Paul Tough",
+            description:`
+            <p>How Children Succeed is a groundbreaking work of journalism that challenges the conventional wisdom about childhood success. Paul Tough argues that the qualities that matter most in determining a child;s future are not cognitive skills--the ones measured by IQ tests and standaradized exams--but rather character skills:grit, curiosity, optimism, conscientiousness and self-control.
+                Synthesizing cutting-edge research in neuroscience, psychology and economics, Tough demonstrates that these non-cognitive traits are not innate and fixed, but can be taught and learned.
+                He travels from pediatric clinics in poverty-sticken neighborhoods to elite private schools on the Upper Eash Side, introducing readers to the researchers, educators and innovators who are reimagining how we raise and teach children.
+                The result is a provocative and deeeply humance argument that we have been focusing on the wrong metrics for success--and that the most critical intervention for children facing adversity is not more math dills, but the cultivation of character.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>Non-Cognitive Skills</li>
+                <li>Adverse Childhood Experiences (ACEs)</li>
+                <li>Stress and Brain Development</li>
+                <li>Attachment and Trust</li>
+                <li>Mistakes and Failure</li>
+                <li>Parenting Styles</li>
+            </ul>`,
+            price:10.99,
+            originalPrice:null, 
+            rating:4.2, 
+            reviewCount:142,
+            page:231,
+            publishDate:"2012-09-04",
+            isbn: 9780547564654,
+            isBestseller:false,
+            isNew:false,
+            category:"education",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Research-Driven Journalism",
+                    description:"Synthesizes decades of neuroscience, psychology and economics into accessible narrative."
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Counterintuitive Thesis",
+                    description: "Directly challenges the 'cognitive hypothesis' that dominates American parenting and education policy."
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Diverse Case Studies",
+                    description: "Visits pediatric clinics, charter schools, chess tournaments and Ivy League laboratories."
+                },
+                {
+                    icon: "fas fa-crystal-ball",
+                    tittle: "ACE Framework",
+                    description: "Introduces general readers to Adverse Childhood Experiences research and its profound implications."
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1 : How to Fail(And How Not To)",
+                "Chapter 2 : How to Build Character",
+                "Chapter 3 : How to Think",
+                "Chapter 4 : How to Succeed",
+                "Chapter 5 : A Better Path",
+                "Chapter 6 : Illuminating Darkness"
+            ],
+            authorBio:`
+                <p><strong>Paul Tough</strong> is a Canadian-American author and journalist whose work focuses on education, child development, poverty and polotics.
+                    He was born in 1967 in Toronto and graduated from Columbia University.
+                    Tough began his career as an editor and writer at Harper's Magazine and later worked as a contributing writer at The New York Times Magazine, where he developed his signature approach : combining rigorous social science research with deeply reported narrative storytelling.
+                    He first book, Whatever It Takes : Geoffrey Canada's Quest to Change Harlem and America(2008), chronicled the creation of the Harlem Children's Zone and became a foundational text in the education reform movement, influencing Obama administration policy.
+                    How Children Succeed (2012) spent more that a year on the New York Times bestseller list and was translated into more than a dozen languages, cementing his reputation as aleading voice on child development.
+                    He followed it with Helping Children Succeed(2016), a practical companion guide and The Years That Matter Most(2019), which examined the college admissions rpocess and inequality in higher education.
+                    Tough has also worked as an editor ar The New York Times and as a commentator for NPR and the CBC.
+                    He lives in Brooklyn with his wife and son and his work continues to bridge the gap between academic research and public understanding.</p>       
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Essential Reading for this book",
+                    content:"This book completely changed my perspective on my child's education. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"This book provide me many knowledge in education",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Great story about education",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:5, 
+                    tittle:"Educated", 
+                    author:"Tara Westover",
+                    price:13.99, 
+                    originalPrice:17.99,
+                    category:"education"
+                },
+                {
+                    id:10, 
+                    tittle:"Make It Stick: The Science of Successful Learning", 
+                    author:"Peter C. Brown, Henry L. Roediger III, Mark A. McDaniel",
+                    price:17.99, 
+                    originalPrice:null,
+                    category:"education"
+                }
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>

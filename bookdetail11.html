@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Technology</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Technology</span>
+                    <div class="tittle" id="cover-tittle">The Technological Republic: Hard Power, Soft Belief, and the Future of the West</div>
+                    <div class="author" id="cover-author">by Alexander C. Karp, Nicholas W.Zamiska</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9780593798690</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">The Technological Republic: Hard Power, Soft Belief, and the Future of the West</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Alexander C. Karp, Nicholas W.Zamiska</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:11,
+            tittle:"The Technological Republic: Hard Power, Soft Belief, and the Future of the West",
+            author:"Alexander C. Karp, Nicholas W.Zamiska",
+            description:`
+            <p>The Technological Republic examines the growing intersection of technology, politics and ideology in shaping Western civilizations's future.
+                It argues that technology is not just a tool but a form of governance and belief, reshaping how power is exercised and societies are organized. The book explores how the West balancing hard power (military,economic and industrial strength) with soft power (values, culture and belief systems) must navigate an era where technological supremacy defines global influence.
+                It calls for a conscious renewal of a technological republic: a society that merges innovation with ethical and democratic principles to sustain its leadership and ideals.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>Technology as Governance</li>
+                <li>Hard vs Soft Power</li>
+                <li>Crisis of Liberal Democracy</li>
+                <li>Innovation and Ethics</li>
+                <li>Future of Sovereignty</li>
+                <li>Belief Systems in a Digital Age</li>
+            </ul>`,
+            price:16.99,
+            originalPrice:null, 
+            rating:4.3, 
+            reviewCount:200,
+            page:320,
+            publishDate:"2025-02-18",
+            isbn: 9780593798690,
+            isBestseller:false,
+            isNew:true,
+            category:"technology",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Interdisciplinary",
+                    description:"Combines political theory, tech studies, history and strategic analysis."
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Provocative Thesis",
+                    description: "Argues that technology has become a 'belief system' and a new form of sovereignty."
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Foward-Looking",
+                    description: "Focused on strategic policy and societal renewal, not just criticism"
+                },
+                {
+                    icon: "fas fa-crystal-ball",
+                    tittle: "Accessible Yet Scholarly",
+                    description: "Written for policymakers, academics and informed public readers."
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1 : Lost Valley",
+                "Chapter 2 : Sparks of Intelligence",
+                "Chapter 3 : The Winner's Fallacy",
+                "Chapter 4 : End of the Atomic Age",
+                "Chapter 5 : The Abandonment of Belief",
+                "Chapter 6 : Technological Agnostics",
+                "Chapter 7 : A Balloon Cut Loose",
+                "Chapter 8 : Flawed Systems",
+                "Chapter 9 : Lost in Toyland",
+                "Chapter 10 : The Eck Swarm",
+                "Chapter 11 : The Improvisational Startup",
+                "Chapter 12 : The Disapprovla of the Crowd",
+                "Chapter 13 : Building a Better Rifle",
+                "Chapter 14 : A Cloud or a Clock",
+                "Chapter 15 : Into the Desert",
+                "Chapter 16 : Piety and Its Price",
+                "Chapter 17 : The Next Thousand Years",
+                "Chapter 18 : An Aestheic Point of View"
+            ],
+            authorBio:`
+                <p><strong>Alexander C.Krap</strong> is the co-founder and Chief Executive Officer of Palantir Technologies, a public software company that specializes in building platforms for data analysis and intelligence gathering for goverment agencies and large enterprises.
+                    Since co-founding Palantir in 2003 with backing from the CIA'venture capital arm, In-Q-Tel, Krap has become one of the most vocal and controversial figures in Silicon Valley, known for his fierce advocacy of technological sovereignty and his sharpcriticism of the tech industry's embrace of short-term commercialism over natioanl security responsibilities.
+                    Trained as  a philosopher and social theorist, Krap holds a Ph.D from the Johann Wolfgang Goethe University in Frankfurt, where he studied under the renowned philosopher</p>
+                <p><strong>Nicholas W.Zamiska</strong> is a writer and former Wall Street Journal reporter who serves as a senior advisor and speechwriter at Palantir.
+                    His background in journalism and his deep engagement with political and economic narratives complement Krap's philosophical and strategic version.
+                    Together, Krap and Zamiska co-authored The Technological Republic as both a warning and a manifesto, arguing that the West mush shed its naivety abnout the geopolitical nature of technology and consciously build a "technological republic" where private innovatrion is deliberately harnessed to serve public, democratic and strategic ends. 
+                    Their combined voice blends on-the-ground corporate experience with intellectual rigor, challenging the assumption that markets and morals or algorithms and autonomy can remain seperate.</p>
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Essential Reading for technology",
+                    content:"This book completely changed my perspective on technology. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"This book provide me many knowledge in technology",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Great Introduction to technology",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:4, 
+                    tittle:"Making, Breaking Codes: Introduction to Cryptology", 
+                    author:"Paul Garrett",
+                    price:11.99, 
+                    originalPrice:null,
+                    category:"technology"
+                },
+                {
+                    id:1, 
+                    tittle:"Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence", 
+                    author:"Kate Crawford",
+                    price:9.90, 
+                    originalPrice:14.99,
+                    category:"technology"
+                }
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>

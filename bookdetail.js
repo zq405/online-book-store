@@ -61,7 +61,7 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
                 const badge=document.createElement('span');
                 badge.className='badge new';
                 badge.innerHTML='<i class="fas fa-star"></i>New Release';
-                badgeContainer.appendChild(badge);
+                badgesContainer.appendChild(badge);
             }
             if(book.originalPrice)
             {
