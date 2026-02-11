@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Technology</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Technology</span>
+                    <div class="tittle" id="cover-tittle">Making, Breaking Codes: Introduction to Cryptology</div>
+                    <div class="author" id="cover-author">by Paul Garrett</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2001</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9780130303691</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">Making, Breaking Codes: Introduction to Cryptology</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Paul Garrett</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:4,
+            tittle:"Making, Breaking Codes: Introduction to Cryptology",
+            author:"Paul Garrett",
+            description:`
+            <p>Making, Breaking Codes: Introduction to Cryptology is a comprehensive and engaging introductory textbook that demystifies the fascinating world of secret communication.
+                Authored by mathematician Paul Garrett, the book stands out for its unique <strong>"learn by doing"</strong> approach, which masterfully bridges <strong>theoretical mathematical depth</strong> with hands-on, practical apllication.
+                Readers are not just passive learners; they become active participants, learning both how to construct (Make) secure ciphers and how to attack (Break) them. 
+                Filled with concrete examples, exercises and guidance on using mathematical software (like Maple or Mathematica), it transforms abstract concenpts into tangible skills.
+                It is ideally suited for undergraduate students in mathematics, computer science or information security, as well as motivated self-learners with a foundational interest in mathematics.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>The Two Pillars of Cryptopology</li>
+                <li>Mathematical Foundations</li>
+                <li>Historical to Modern Evolution</li>
+                <li>Public-Key Revolution</li>
+                <li>Primality & Factoring</li>
+                <li>Digital Signatures & Protocols</li>
+            </ul>`,
+            price:11.99,
+            originalPrice:null, 
+            rating:4.3, 
+            reviewCount:189,
+            page:544,
+            publishDate:"2001-08-09",
+            isbn: 9780130303691,
+            isBestseller:true,
+            isNew:false,
+            category:"technology",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Learn by Doing",
+                    description:"Focus on hands-on practice."
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Two Sides Covers",
+                    description: "Both making and breaking codes."
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Math Based",
+                    description: "Strong focus on essential amth for crypto."
+                },
+                {
+                    icon: "fas fa-crystal-ball",
+                    tittle: "Full Journey",
+                    description: "From historical ciphers to modern AES/RSA."
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1 : Simple Ciphers",
+                "Chapter 2 : Probability & English",
+                "Chapter 3 : Substitution Ciphers",
+                "Chapter 4 : The One-Time Pad",
+                "Chapter 5 : Stream Ciphers & Linear Feedback Shift Registers (LFSRs)",
+                "Chapter 6 : Permutation & Block Ciphers",
+                "Chapter 7 : The Data Encryption Standard (DES)",
+                "Chapter 8 : The Advanced Encryption Standard (AES)",
+                "Chapter 9 : Public-Key Ciphers : The Basics",
+                "Chapter 10 : The RSA Crytosystem",
+                "Chapter 11 : Primality Testing & Factoring Algorithms",
+                "Chapter 12 : Diffie-Hellman Key Exchange & Discrete Logarithms"
+            ],
+            authorBio:`
+                <p><strong>Paul Garrett</strong> is a mathematician and professor known for his work in number theory, automorphic forms and notably, his talent for exposition and mathematical pedagogy.
+                    He has held long-term faculty positions at prominent institutaions, including the University of Minnesota and University of Toronto.
+                    Beyond his research publications, Garrett is highly regarded for creating clear,rigorous and accessible educational materials.
+                    His writing including Making, Breaking Codes is characterized by a commitment to explain the "why" behind the mathematics, making complex topics approachable without sacrificing accuracy. 
+                    He also maintains extensive online notes and resources for advanced mathematics, futther demonstrating his dedication to teaching and knowledge sharing within the mathematical community.</p>
+                
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Essential Reading for technology",
+                    content:"This book completely changed my perspective on technology. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"This book provide me many knowledge in technology",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Great Introduction to technology",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:11, 
+                    tittle:"The Technological Republic: Hard Power, Soft Belief, and the Future of the West", 
+                    author:"Alexander C. Karp, Nicholas W.Zamiska",
+                    price:16.99, 
+                    originalPrice:null,
+                    category:"technology"
+                },
+                {
+                    id:1, 
+                    tittle:"Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence", 
+                    author:"Kate Crawford",
+                    price:9.90, 
+                    originalPrice:14.99,
+                    category:"technology"
+                }
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>
