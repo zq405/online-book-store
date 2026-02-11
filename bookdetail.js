@@ -338,7 +338,7 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
                     tittle:bookData.tittle,
                     price:bookData.price,
                     quantity:1,
-                    cover:`Book Cover: ${bookData,tittle}`
+                    cover:`Book Cover: ${bookData.tittle}`
                 });
                 localStorage.setItem('bookverse_cart',JSON.stringify(shoppingCart));
                 updateCartCount();
