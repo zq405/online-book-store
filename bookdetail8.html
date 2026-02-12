@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Fiction</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Fiction</span>
+                    <div class="tittle" id="cover-tittle">To Kill a Mockingbird</div>
+                    <div class="author" id="cover-author">by Harper Lee</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2021</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9780060935467</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">To Kill a Mockingbird</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Harper Lee</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:7,
+            tittle:"To Kill a Mockingbird",
+            author:"Harper Lee",
+            description:`
+            <p>To Kill a Mockingbird is a classic American novel set in the 1930s in the fictional town of Maycomb, Alabama, told through the eyes of six-year-old Scout Finch. The novel follows her father, Atticus Finch, a principled lawyer who defends Tom Robinson, a Black man falsely accused of raping a white woman. Through Scout's innocent yet perceptive narration, the novel explores themes of racial injustice, moral courage and the loss of innocence.
+                Woven alongside the trial is the parallel story of Boo Radley, a reclusive neighbor whom Scout, her brother Jem and their friend Dill attemot to lure from his house.
+                As the children mature through their encounters with prejudice and hypocrisy, then learn Atticus's enduring lesson : "You never really understand a person until you consider things from his point of view." 
+                Winner of the Pulitzer Prize in 1961, the novel has sold over 40 million copies worldwide and remains a defining text of American literature.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>Racial Injustice</li>
+                <li>Moral Courage</li>
+                <li>Loss of Innocence</li>
+                <li>Empathy and Perspective</li>
+                <li>Social Class and Inequality</li>
+                <li>Genders Roles</li>
+            </ul>`,
+            price:18.99,
+            originalPrice:null, 
+            rating:4.9, 
+            reviewCount:98,
+            page:323,
+            publishDate:"2021-02-01",
+            isbn: 9780060935467,
+            isBestseller:false,
+            isNew:false,
+            category:"fiction",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Pulitzer Prize Winner",
+                    description:"Awarded the Pulitzer Prize for Fiction in 1961."
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Over 40 Million Copies Sold",
+                    description: "One of the best-selling books of all time, translated into more than 40 languages"
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Unforgettable Protagonist",
+                    description: "Scout Finch is among the most beloved and iconic narrators in literary history"
+                },
+                {
+                    icon: "fas fa-crystal-ball",
+                    tittle: "Atticus Finch as Moral Ideal",
+                    description: "Atticus became a cultural archetype of integrity; frequently voted the greatest hero in American film and literature."
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1",
+                "Chapter 2",
+                "Chapter 3",
+                "Chapter 4",
+                "Chapter 5",
+                "Chapter 6",
+                "Chapter 7",
+                "Chapter 8",
+                "Chapter 9",
+                "Chapter 10",
+                "Chapter 11",
+                "Chapter 12",
+                "Chapter 13",
+                "Chapter 14",
+                "Chapter 15",
+                "Chapter 16",
+                "Chapter 17",
+                "Chapter 18",
+                "Chapter 19",
+                "Chapter 20",
+                "Chapter 21",
+                "Chapter 22",
+                "Chapter 23",
+                "Chapter 24",
+                "Chapter 25",
+                "Chapter 26",
+                "Chapter 27",
+                "Chapter 28",
+                "Chapter 29",
+                "Chapter 30",
+                "Chapter 31"
+            ],
+            authorBio:`
+                <p><strong>Harper Lee</strong> was an American novelist born on April 28, 1926, in Monroeville, Alabama.
+                    The youngest of four children, she was the daughter of Frances Cunningham Finch and Amasa Coleman Lee, a lawyer and newspaper editor whose defense of two Black men accused of murder served as partial inspiration for Atticus Finch.
+                    Lee srudied law at the University of Alabama but left six months before completing her degree to pursure writing in New York City. She worked as an airline reservation agent while writing fiction.
+                    In 1957, she submitted a manuscript to puiblishers; an editor at J.B Lippincott encouraged her to revise it into what became To Kill a Mockingbird.
+                    Published in 1960, the novel was an immediate sensation, winning the Pulitzer Prize and selling millions of copies worldwide.
+                    Lee was famously private, granting few interviews and publishing almost nothiing else for the remainder of her life.
+                    For decades, she lived between New York and Monroeville, avoiding public attention.
+                    In 2015, her first manuscript, Go Set a Watchman, was controversially published as a sequel,though it was actually written before Mockingbird and depicts an older, more compromised Atticus Finch.
+                    The publication sparked intense debate about whether Lee, who was elderly and in assisted living, had consented to its release.
+                    Lee died on Frebruary 19,2016, at the age of 89.
+                    Despite her singular bibilography, she is ragarded as one of the most important American writers of the twentieth century and To Kill a Mockingbird endures as a defining work of moral literature.</p>
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Good Novel",
+                    content:"This book completely changed my perspective on chemistry. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"I already repeat it 10 times.",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Greet Story",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:7, 
+                    tittle:"Lessons in Chemistry", 
+                    author:"Bonnie Garmus",
+                    price:15.99, 
+                    originalPrice:24.99,
+                    category:"fiction"
+                },
+                {
+                    id:9, 
+                    tittle:"Tomorrow, and Tomorrow, and Tomorrow", 
+                    author:"Gabrielle Zevin",
+                    price:19.99, 
+                    originalPrice:null,
+                    category:"fiction"
+                }
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>

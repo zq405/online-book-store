@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Fiction</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Fiction</span>
+                    <div class="tittle" id="cover-tittle">Lessons in Chemistry</div>
+                    <div class="author" id="cover-author">by Bonnie Garmus</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2023</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9781804990926</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">Lessons in Chemistry</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Bonnie Garmus</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:7,
+            tittle:"Lessons in Chemistry",
+            author:"Bonnie Garmus",
+            description:`
+            <p>Lessons in Chemistry is a dazzling witty and fiercely feminist debut novel set in the early 1960s that follows the unconventional Elizabeth Zott, a scientist whose ambitions are repeatedlt thwarted by a partriachal society thet refuses to take women seriously.
+                Chemist by training and rationalist by nature, Elizabeth is fired from her research position and reluctantly become the host of a cooking show, Supper at Six, where she inadvertently becomes a feminist icon by treating cooking as applied chemistry and her female viewers as intelligent equals.
+                Alongside her precocious daughter Mad, her soulmate Calvin Evans (a Nobel-nominated fellow scientist) and her remarkable dog Six-Thirty, Elizabeth Zott challenges the era's rigid gender roles with wit, resolve and unshakable belief in the power of science.
+                The novel is at once a hilarious satire of 1950s sexism, a heartbreaking love story and a stirring celebration of women who refuse to conform.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>Feminism and Sexism in Mid-Century America</li>
+                <li>Science and Rtionality</li>
+                <li>Motherhood and Nonconformity</li>
+                <li>Grief and Loss</li>
+                <li>The Politics of Domesticity</li>
+                <li>Justice and Revenge</li>
+            </ul>`,
+            price:15.99,
+            originalPrice:24.99, 
+            rating:4.8, 
+            reviewCount:321,
+            page:390,
+            publishDate:"2023-03-02",
+            isbn: 9781804990926,
+            isBestseller:true,
+            isNew:false,
+            category:"fiction",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"Instant Bestseller",
+                    description:"Debuted at #1 on the New York Times fiction bestseller list and remained for over 100 weeks"
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Award-Winning Debut",
+                    description: "Winner of the Goodreads Choice Award for Best Debut Novel and Best Historical Fiction"
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Unforgettable Protagonist",
+                    description: "Elizabeth Zott is widely celebrated as one of contemporary fiction's most memorable heroines"
+                },
+                {
+                    icon: "fas fa-crystal-ball",
+                    tittle: "Science as Narrative Lens",
+                    description: "Unique use of chemical concepts as both chapter titles and thematic metaphors."
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1 : The Elemental",
+                "Chapter 2 : The Abnegation",
+                "Chapter 3 : The Catalyst",
+                "Chapter 4 : The Covalent Bond",
+                "Chapter 5 : The pH Scale",
+                "Chapter 6 : The Sublimation",
+                "Chapter 7 : The Boiling Point",
+                "Chapter 8 : The Titration",
+                "Chapter 9 : The Luminescence",
+                "Chapter 10 : The Replication Crisis",
+                "Chapter 11 : The Free Radical",
+                "Chapter 12 : The Valence",
+                "Chapter 13 : The Thermoregulation",
+                "Chapter 14 : The Gravitational Pull",
+                "Chapter 15 : The Synthesis",
+                "Chapter 16 : The Hydrolysis",
+                "Chapter 17 : The Equilibrium",
+                "Chapter 18 : The Oxidation",
+                "Chapter 19 : The Reduction",
+                "Chapter 20 : The Chain Reaction",
+                "Chapter 21 : The Fusion",
+                "Chapter 22 : The Decomposition",
+                "Chapter 23 : The Precipitate",
+                "Chapter 24 : The Exothermic Reaction",
+                "Chapter 25 : The Unsaturated Solution",
+                "Chapter 26 : The Yield",
+                "Chapter 27 : The Byproduct",
+                "Chapter 28 : The Endothermic Reaction",
+                "Chapter 29 : The Absorption Spectrum",
+                "Chapter 30 : The Bond Dissociation Energy",
+                "Chapter 31 : The Crystallization",
+                "Chapter 32 : The Stoichiometry",
+                "Chapter 33 : The Fractional Distillation",
+                "Chapter 34 : The Activation Energy",
+                "Chapter 35 : The Azeotrope",
+                "Chapter 36 : The Empirical Formula",
+                "Chapter 37 : The Ideal Gas Law",
+                "Chapter 38 : The Limiting Reagent",
+                "Chapter 39 : The Neutralization",
+                "Chapter 40 : The Equilibrium Constant",
+                "Chapter 41 : Lessons in Chemistry"
+            ],
+            authorBio:`
+                <p><strong>Bonnie Garmus</strong> is an American author and former copywriter and creative director whose debut novel, Lessons in Chemistry, became one of the most celebrated liteerary phenomena of the 2020s. Born in California and raised ini Seattle, Garmus earned her bachelor's degree from the University of Wshington and spent decades working in corporate communications, advertising and medical writing before turning to fiction.
+                    She wrote Lessons in Chemistry over the course of eight years, often rising at 4:00 a.m. to write before her day job.
+                    The manuscript was rejected more than ninety times before being acquired by Doubleday in 2021 and published in 2022 to immediate critical and commercial acclaim.
+                    Garmus has cited her own experiences as a woman in male-dominated industries, her lifelong love of science and her admiration for strong, unconventional women as influences on the novel.
+                    A competitive swimmer and open-water enthusiast, she lives in London with her husband and their dog,99.
+                    She is currently at work on her second novel, also set in the mid-twentieth century and featuring another fiercely intelligent female protagonist.</p>
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Good Novel",
+                    content:"This book completely changed my perspective on chemistry. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"This story let me intersted in chemistry.",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Greet Story",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:8, 
+                    tittle:"To Kill a Mockingbird", 
+                    author:"Harper Lee",
+                    price:18.99, 
+                    originalPrice:null,
+                    category:"fiction"
+                },
+                {
+                    id:9, 
+                    tittle:"Tomorrow, and Tomorrow, and Tomorrow", 
+                    author:"Gabrielle Zevin",
+                    price:19.99, 
+                    originalPrice:null,
+                    category:"fiction"
+                }
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>
