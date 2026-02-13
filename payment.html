@@ -134,7 +134,7 @@
             <h3>✅ Payment Successful!</h3>
             <p>Thank you for your order!</p>
             <p>Order ID: <strong id="orderId">BOOK-12345</strong></p>
-            <button onclick="goToDashboard()" style="background:#0d4497;color:white;margin-top:10px;">View Order</button>
+            <button onclick="goBackHome()" style="background:#0d4497;color:white;margin-top:10px;">Back to Home</button>
         </div>
     </div>
 
@@ -255,9 +255,9 @@
         {
             window.location.href = 'checkout.html';
         }
-        function goToDashboard() 
+        function goBackHome() 
         {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'index.html';
         }
         document.addEventListener('DOMContentLoaded', function() 
         {
