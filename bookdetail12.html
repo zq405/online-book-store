@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="bookdetail.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index..php" class="logo">📚 BookVerse</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booklist.html">Browse Books</a></li>
+                <li><a href="#featured">Featured Books</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="contactUs.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-signup">Sign Up</a>
+                <a href="cart.html" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="booklist.html">Books</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Business</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Book Tittle</span>
+        </div>
+
+        <div class="book-detail-container">
+            <div class="book-cover-section">
+                <div class="book-cover-main">
+                    <span class="category-tag" id="cover-category">Business</span>
+                    <div class="tittle" id="cover-tittle">The 4-Hour Workweek</div>
+                    <div class="author" id="cover-author">by Timothy Ferriss</div>
+                </div>
+
+                <div class="book-badges" id="book-badged">
+                </div>
+                <div class="book-price-section">
+                    <div class="price-main">
+                        <span class="price-original" id="original-price" style="display: none;">$0.00</span>
+                        <span id="current-price">$0.00</span>
+                        <span class="price-discount" id="discount-percent" style="display: none;">$-0%</span>
+                    </div>
+                    <div id="price-save" style="color: #4caf50; font-weight: 600; font-size: 0.9rem; display: none;">Save $0.00</div>
+                </div>
+
+                 <div class="book-actions">
+                    <button class="btn-add-to-cart" id="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="book-meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Pages:</span>
+                        <span class="meta-value" id="meta-pages">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Publisled:</span>
+                        <span class="meta-value" id="meta-published">2007</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">ISBN:</span>
+                        <span class="meta-value" id="meta-isbn">9780307353139</span> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-info-section">
+                <div class="book-header">
+                    <h1 class="book-tittle" id="book-tittle">The 4-Hour Workweek</h1>
+                    <div class="book-author" id="book-author">
+                        <i class="fas fa-user-pen"></i>
+                        <span>Timothy Ferriss</span>
+                    </div>
+                    <div class="book-rating-overview">
+                        <div class="rating-stars" id="rating-stars"></div>
+                        <div class="rating-number" id="rating-number">0.0</div>
+                        <div class="rating-count" id="rating-count">(0 reviews)</div>
+                        <button class="btn-write-review" onclick="scrollToReviewForm()">
+                            <i class="fas fa-pen"></i>
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-book-open"></i>
+                        Description
+                    </h3>
+                    <div id="book-description">
+                    </div>
+                </div>
+
+                <div class="book-features">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-star"></i>
+                        Key Features
+                    </h3>
+                    <div class="features-grid" id="features-grid">
+                    </div>
+                </div>
+
+                <div class="book-toc" style="margin: 30px 0;">
+                    <h3 class="section-tittle">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <div id="table-contents" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+                
+                <div class="book-author-info" style="margin: 30px 0; padding: 20px; background: #f8fbff; border-radius: 8px;">
+                    <h3 class="section-tittle">
+                        <i class="fas-fa-user"></i>
+                        About the Author
+                    </h3>
+                    <div id="author-bio" style="color: #555;line-height: 1.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 style="color: #0d47a1; font-size: 1.5rem;">
+                    <i class="fas fa-comments"></i>
+                    Customer reviews
+                </h2>
+                <button class="btn-write-review" onclick="scrollToReviewForm()">
+                    <i class="fas fa-pen"></i>
+                    Write a Review
+                </button>
+            </div>
+
+            <div class="review-summary">
+                <div class="average-rating">
+                    <div class="average-rating-number" id="average-rating">0.0</div>
+                    <div class="average-rating-stars" id="average-rating-stars"></div>
+                    <div class="rating-count" id="total-review-count">0 reviews</div>
+                </div>
+                <div class="rating-bars"></div>
+            </div>
+
+            <div class="review-list" id="review-list"></div>
+
+            <div class="review-form" id="review-form">
+                <h3 style="color: #0d47a1;margin-bottom: 20px;">Write Your Review</h3>
+                <form id="review-form-element" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label for="review-rating">Your Rating *</label>
+                        <div class="rating-input" id="review-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="selected-rating" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-name">Your Name *</label>
+                        <input type="text" id="review-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-email">Your Email *</label>
+                        <input type="email" id="review-email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-tittle">Review Tittle *</label>
+                        <input type="text" id="review-tittle" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-content">Your Review *</label>
+                        <textarea id="review-content" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearReviewForm()">
+                            Clear Form
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="related-books-section">
+            <h2 style="color: #0d47a1;font-size: 1.5rem;margin-bottom: 20px;">
+                <i class="fas fa-book"></i>
+                Related Books
+            </h2>
+            <div class="related-books-grid" id="related-books"></div>
+        </div>
+    </div>
+    <iframe src="footer.html" width="100%" height="400px" scrolling="no"></iframe>          
+    <script>
+        const bookData=
+        {
+            id:3,
+            tittle:"The 4-Hour Workweek",
+            author:"Timothy Ferriss",
+            description:`
+            <p>The 4-Hour Workweek is a groundbreaking lifestyle design manual that challenges the traditional notino of deferring life's pleasure until retirement.
+                Timothy Ferriss argues that instead of waiting decades to enjoy freedom, people can design their lives now to achieve mobility, income automaiton and time abundance.
+                Drawing from his personal jouorney from a workaholic entrepreneur working eighty hours per week to earning a full-time income while working only four hours, Ferriss provides a step-by-step blueprint for escaping the nine-to-five rat race.
+                The book teaches readers how to outsource their lives to virtual assistants, eliminate fifty percent of their work in forty-eight hours using the Pareto Principle, create automed income streams and embrace "mini-retirements" throughout life rather than at the end.
+                First published in 2007, it spent four years on the New York Times bestseller list, was translated into forty languages and sold approximately 2.1 million copies, becoming a defining text of the location-independent lifestyle movement.</p>
+            <p>Key topics covered include:</p>
+            <ul style="margin-left:20px;margin-bottom:15px;">
+                <li>Lifestyle Design</li>
+                <li>The New Rich(NR)</li>
+                <li>The DEAL Framework</li>
+                <li>Pareto Principle (80/20 Rule)</li>
+                <li>Low-Information Diet</li>
+                <li>Outsourcing and Virtual Assitants</li>
+            </ul>`,
+            price:21.99,
+            originalPrice:null, 
+            rating:4.5, 
+            reviewCount:210,
+            page:308,
+            publishDate:"2007-04-24",
+            isbn: 9780307353139,
+            isBestseller:true,
+            isNew:false,
+            category:"business",
+            features:[
+                {
+                    icon:"fas fa-brain",
+                    tittle:"The DEAL Acronym",
+                    description:"Simple, memorable four-step framework organizing the entire book."
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    tittle: "Personal Origin Story",
+                    description: "Based on Ferriss's own transformation from eighty-hout workweeks to four-hour workweeks"
+                },
+                {
+                    icon: "fas fa-users",
+                    tittle: "Princeton University Roots",
+                    description: "Concepts developed during guest lectures Ferriss delivered at his alma workers"
+                }
+            ],
+            tableContents:
+            [
+                "Chapter 1 : Cautions and Comparisons-How to Burn $1,000,000 a Night",
+                "Chapter 2 : Rules That Change the Rules-Everything Popular is Wrong",
+                "Chapter 3 : Dodging Bullets-Fear-Setting and Escaping Paralysis",
+                "Chapter 4 : System Reset-Being Unreasonable and Unambiguous",
+                "Chapter 5 : The End of Time Management-Illusions and Italians",
+                "Chapter 6 : The Low-Information Diet-Cultivating Selective Ignorance",
+                "Chapter 7 : Interrupting Interruption and the Art of Refusal",
+                "Chapter 8 : Outsourcing Life-Offloading the Rest and a Taste of Geoarbitrage",
+                "Chapter 9 : Income Autopilot I-Finding the Muse",
+                "Chapter 10 : Income Autopilot II-Testing the Muse",
+                "Chapter 11 : Income Autopilot III-MBA:Management By Absence",
+                "Chapter 12 : Disappearing Act-How to Escape the Office",
+                "Chapter 13 : Beyond Repair-Killing Your Job",
+                "Chapter 14 : Mini-Retirements-Embracing the Mobile Lifestyle",
+                "Chapter 15 : Filling the Void-Adding Life After Subtracting Work",
+                "Chapter 16 : The Top 13 New Rich Mistakes"
+            ],
+            authorBio:`
+                <p><strong>Timothy Ferriss</strong> is an American entrepreneur, investor, author and podcaster born on July 20,1977, in East Hampton, New York.
+                    He graduated from Princeton University in 2000 with a degree in East Asian Studies.
+                    After college, Ferriss worked in sales at a data storage company before foundiing BrainQUICKEN, an internet based nutritional supplements business, in 2001.
+                    The company, later renamed BodyQUICK, was sold to a London-based private equity firm in 2010 and Ferriss has stated that The 4-Hour Workweek was directly based on this period of his life.
+                    Beyond his writing, Ferriss is a prominent angel investor and startup advisor, with early investments and advisory roles in companies including Uber, Facebook, Twitter, Shopify and TaskRabbit.
+                    In 2013, he launched an audiobook publishing venture and has since published works by Ryan Holiday and others.
+                    His long-running podcast, The Tim Ferriss Show, launched in 2014 and features interviews with world-class performs across industries; it has consistently ranked as one of the top business podcast globally.
+                    Ferriss has also hosted television programs including The Tim Ferriss Experiment and Fear(Less) with Tim Ferriss.
+                    Since 2016, he has donated at least two million dollars to psychedelic research at Johns Hopkins University and Imperial College London, citing his personal experience with bipolar disorder and the loss of a friend to drug overdose as motivations.
+                    A practitioner of Stocism and meditation, Ferriss gave a TED talk in 2017 titled "Why you should define your fears instead of your goals."
+                    In recent years, he has publicly reevaluated aspects of his earlier 4-Hour philosophy, acknowledeging that not everything meaningful can be measured.
+                    Ferriss resides in Austin, Texas and continues to release episodes of The Tim Ferriss Show.</p>
+            `,
+            reviews:[
+                {
+                    id:1,
+                    name:"Ali",
+                    date:"March 15,2025",
+                    rating:5,
+                    tittle:"Essential Reading for marketing",
+                    content:"This book completely changed my perspective on marketing. It help me very much.",
+                    helpful:42,
+                    notHelpful:0,
+                },
+                {
+                    id:2,
+                    name:"Abu",
+                    date:"April 15,2025",
+                    rating:4,
+                    tittle:"Good book",
+                    content:"This book provide me many knowledge in marketing",
+                    helpful:18,
+                    notHelpful:1,
+                },
+                {
+                    id:3,
+                    name:"Xiao Ming",
+                    date:"May 15,2025",
+                    rating:5,
+                    tittle:"Nice book",
+                    content:"This book open my eyes",
+                    helpful:31,
+                    notHelpful:0
+                },
+                {
+                    id:4,
+                    name:"Xiao Li",
+                    date:"June 15,2025",
+                    rating:4,
+                    tittle:"Great Introduction to business",
+                    content:"Greet introduction but not adapt for deep learning",
+                    helpful:15,
+                    notHelpful:3,
+                }
+            ],
+            relatedBooks:[
+                {
+                    id:2, 
+                    tittle:"Building a StoryBrand: Clarify Your Message So Customers Will Listen", 
+                    author:"Donald Miller",
+                    price:12.99, 
+                    originalPrice:null,
+                    category:"business"
+                },
+                {
+                    id:3, 
+                    tittle:"To Sell Is Human: The Surprising Truth About Moving Others", 
+                    author:"Daniel H. Pink",
+                    price:14.99, 
+                    originalPrice:19.99,
+                    category:"business"
+                },
+            ]
+        };
+    </script>
+    <script src="bookdetail.js"></script>
+
+</body>
+</html>
