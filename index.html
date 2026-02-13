@@ -19,14 +19,17 @@
         }
         nav {
             background-color:#bbdefb;
-            padding:1rem 2rem;
+            padding:0.5rem 2rem;
             position:sticky;
             top:0;
             z-index:1000;
             box-shadow:0 2px 4px rgba(0,0,0,0.1);
         }
+        span{
+            font-size:1.65rem;
+        }
         .nav-container {
-            max-width:1200px;
+            width:100%;
             margin-left:auto;
             margin-right:auto;
             display:flex;
@@ -34,7 +37,7 @@
             align-items:center;
         }
         .logo {
-            font-size:1.5rem;
+            font-size:1rem;
             font-weight:bold;
             color:#0d47a1;
             text-decoration:none;
@@ -71,8 +74,8 @@
             text-decoration: none;
         }
         .btncart{
-            color: #0d47a1;
-            font-size: 1.2rem; 
+            color: #6c0d97;
+            font-size: 1rem; 
             margin-left: 1rem; 
             position:relative; 
             text-decoration: none;
@@ -162,7 +165,7 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        .btn-view-details{
+        .btnviewdetails{
             width:100%;
             padding: 0.8rem;
             background:#0d47a1;
@@ -193,7 +196,7 @@
 <body>
     <nav>
         <div class="nav-container">
-            <a href="index.html"class="logo">BookVerse</a>
+            <a href="index.html"class="logo"><span>📚BookVerse</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="booklist.html">Browse Books</a></li>
@@ -230,10 +233,46 @@
 
             <h2 class="section-title" id="featured">Featured Books</h2>
             <div class="book-grid">
-                <div class="book-card"><div class="book-cover">The Digital Revolution</div><div class="book-info"><div style="font-weight:bold; color:#0d47a1;">The Digital Revolution</div><div style="color:#666; font-size:0.9rem;">by John Smith</div><div style="color:#ffc107;">⭐⭐⭐⭐⭐</div><div class="book-price">$9.99</div><button class="btn-view-details" onclick="location.href='book-detail-1.html'">View Details</button></div></div>
-                <div class="book-card"><div class="book-cover">Beyond the Horizon</div><div class="book-info"><div style="font-weight:bold; color:#0d47a1;">Beyond the Horizon</div><div style="color:#666; font-size:0.9rem;">by Emily Davis</div><div style="color:#ffc107;">⭐⭐⭐⭐</div><div class="book-price">$12.99</div><button class="btn-view-details" onclick="location.href='book-detail-2.html'">View Details</button></div></div>
-                <div class="book-card"><div class="book-cover">Code Masters</div><div class="book-info"><div style="font-weight:bold; color:#0d47a1;">Code Masters</div><div style="color:#666; font-size:0.9rem;">by Alex Johnson</div><div style="color:#ffc107;">⭐⭐⭐⭐⭐</div><div class="book-price">$14.99</div><button class="btn-view-details" onclick="location.href='book-detail-1.html'">View Details</button></div></div>
-                <div class="book-card"><div class="book-cover">Mindful Living</div><div class="book-info"><div style="font-weight:bold; color:#0d47a1;">Mindful Living</div><div style="color:#666; font-size:0.9rem;">by Sarah Wilson</div><div style="color:#ffc107;">⭐⭐⭐⭐</div><div class="book-price">$11.99</div><button class="btn-view-details" onclick="location.href='book-detail-2.html'">View Details</button></div></div>
+                <div class="book-card">
+                    <div class="book-cover" style="background:linear-gradient(135deg,#65a8fff8,#43c3ffcb); display:flex;height:280px;align-items: center;flex-direction: column;">Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence<div style="font-size: 12px;font-style: italic;">by Kate Crawford</div></div>
+                    <div class="book-info">
+                        <div style="font-weight:bold; color:#0d47a1; height:3em; overflow:hidden;">Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence</div>
+                        <div style="color:#666;font-size: 0.85rem; margin-bottom:5px;">by Kate Crawford</div>
+                        <div style="color:#ffc107; font-size:0.8rem;">⭐⭐⭐⭐ <bold>4.8</bold> (248)</div>
+                        <div class="book-price">$9.90</div>
+                        <button class="btnviewdetails"onclick="location.href='bookdetail1.html?id=1'">View Details</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover" style="background:linear-gradient(135deg,#65a8fff8,#43c3ffcb);display:flex;height:280px;align-items: center;flex-direction: column;">Building a StoryBrand: Clarify Your Message So Customers Will Listen<div style="font-size: 12px;font-style: italic;">by Donald Miller</div></div>
+                    <div class="book-info">
+                        <div style="font-weight:bold; color:#0d47a1; height:3em; overflow:hidden;">Building a StoryBrand: Clarify Your Message So Customers Will Listen</div>
+                        <div style="color:#666;font-size: 0.85rem; margin-bottom:5px;">by Donald Miller</div>
+                        <div style="color:#ffc107; font-size:0.8rem;">⭐⭐⭐⭐ <bold>4.5</bold> (165)</div>
+                        <div class="book-price">$12.99</div>
+                        <button class="btnviewdetails"onclick="location.href='bookdetail2.html?id=2'">View Details</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover" style="background:linear-gradient(135deg,#65a8fff8,#43c3ffcb);display:flex;height:280px;align-items: center;flex-direction: column;">Educated<div style="font-size: 12px;font-style: italic;">by Tara Westover</div></div>
+                    <div class="book-info">
+                        <div style="font-weight:bold; color:#0d47a1; height:3em; overflow:hidden;">Educated</div>
+                        <div style="color:#666;font-size: 0.85rem; margin-bottom:5px;">by Tara Westover</div>
+                        <div style="color:#ffc107; font-size:0.8rem;">⭐⭐⭐⭐ <bold>4.7</bold> (321)</div>
+                        <div class="book-price">$13.99</div>
+                        <button class="btnviewdetails"onclick="location.href='bookdetail3.html?id=3'">View Details</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover" style="background:linear-gradient(135deg,#65a8fff8,#43c3ffcb);display:flex;height:280px;align-items: center;flex-direction: column;">Lessons in Chemistry<div style="font-size: 12px;font-style: italic;">by Bonnie Garmus</div></div>
+                    <div class="book-info">
+                        <div style="font-weight:bold; color:#0d47a1; height:3em; overflow:hidden;">Lessons in Chemistry</div>
+                        <div style="color:#666;font-size: 0.85rem; margin-bottom:5px;">by Bonnie Garmus</div>
+                        <div style="color:#ffc107; font-size:0.8rem;">⭐⭐⭐⭐ <bold>4.8</bold> (248)</div>
+                        <div class="book-price">$15.99</div>
+                        <button class="btnviewdetails"onclick="location.href='bookdetail4.html?id=4'">View Details</button>
+                    </div>
+                </div>
             </div>
     </div>
 

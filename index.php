@@ -720,7 +720,7 @@
             <div class="footer-section">
                 <h4>About Us</h4>
                 <ul>
-                    <li><a href="#about">About BookVerse</a></li>
+                    <li><a href="aboutUs.html">About BookVerse</a></li>
                     <li><a href="#">Our Mission</a></li>
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Blog</a></li>
@@ -729,7 +729,7 @@
             <div class="footer-section">
                 <h4>Customer Service</h4>
                 <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contactUs.html">Contact Us</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Shipping Info</a></li>
                     <li><a href="#">Returns</a></li>

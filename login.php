@@ -19,7 +19,7 @@ if(isset($_POST['username'])){
            header("Location: index.html");
            exit();
 
-        } else{
+        }else{
             header("Location: login.html?error=".urlencode("Invalid password."));
             exit();
         }
