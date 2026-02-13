@@ -35,7 +35,7 @@
             <i class="fas fa-chevron-right"></i>
             <a href="booklist.html">Books</a>
             <i class="fas fa-chevron-right"></i>
-            <span id="breadcrumb-category">Fiction</span>
+            <span id="breadcrumb-category">Business</span>
             <i class="fas fa-chevron-right"></i>
             <span id="breadcrumb-category">Book Tittle</span>
         </div>
@@ -43,9 +43,9 @@
         <div class="book-detail-container">
             <div class="book-cover-section">
                 <div class="book-cover-main">
-                    <span class="category-tag" id="cover-category">Fiction</span>
-                    <div class="tittle" id="cover-tittle">To Kill a Mockingbird</div>
-                    <div class="author" id="cover-author">by Harper Lee</div>
+                    <span class="category-tag" id="cover-category">Business</span>
+                    <div class="tittle" id="cover-tittle">The 4-Hour Workweek</div>
+                    <div class="author" id="cover-author">by Timothy Ferriss</div>
                 </div>
 
                 <div class="book-badges" id="book-badged">
@@ -77,21 +77,21 @@
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Publisled:</span>
-                        <span class="meta-value" id="meta-published">2021</span>
+                        <span class="meta-value" id="meta-published">2007</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">ISBN:</span>
-                        <span class="meta-value" id="meta-isbn">9780060935467</span> 
+                        <span class="meta-value" id="meta-isbn">9780307353139</span> 
                     </div>
                 </div>
             </div>
 
             <div class="book-info-section">
                 <div class="book-header">
-                    <h1 class="book-tittle" id="book-tittle">To Kill a Mockingbird</h1>
+                    <h1 class="book-tittle" id="book-tittle">The 4-Hour Workweek</h1>
                     <div class="book-author" id="book-author">
                         <i class="fas fa-user-pen"></i>
-                        <span>Harper Lee</span>
+                        <span>Timothy Ferriss</span>
                     </div>
                     <div class="book-rating-overview">
                         <div class="rating-stars" id="rating-stars"></div>
@@ -223,101 +223,83 @@
     <script>
         const bookData=
         {
-            id:7,
-            tittle:"To Kill a Mockingbird",
-            author:"Harper Lee",
+            id:3,
+            tittle:"The 4-Hour Workweek",
+            author:"Timothy Ferriss",
             description:`
-            <p>To Kill a Mockingbird is a classic American novel set in the 1930s in the fictional town of Maycomb, Alabama, told through the eyes of six-year-old Scout Finch. The novel follows her father, Atticus Finch, a principled lawyer who defends Tom Robinson, a Black man falsely accused of raping a white woman. Through Scout's innocent yet perceptive narration, the novel explores themes of racial injustice, moral courage and the loss of innocence.
-                Woven alongside the trial is the parallel story of Boo Radley, a reclusive neighbor whom Scout, her brother Jem and their friend Dill attemot to lure from his house.
-                As the children mature through their encounters with prejudice and hypocrisy, then learn Atticus's enduring lesson : "You never really understand a person until you consider things from his point of view." 
-                Winner of the Pulitzer Prize in 1961, the novel has sold over 40 million copies worldwide and remains a defining text of American literature.</p>
+            <p>The 4-Hour Workweek is a groundbreaking lifestyle design manual that challenges the traditional notino of deferring life's pleasure until retirement.
+                Timothy Ferriss argues that instead of waiting decades to enjoy freedom, people can design their lives now to achieve mobility, income automaiton and time abundance.
+                Drawing from his personal jouorney from a workaholic entrepreneur working eighty hours per week to earning a full-time income while working only four hours, Ferriss provides a step-by-step blueprint for escaping the nine-to-five rat race.
+                The book teaches readers how to outsource their lives to virtual assistants, eliminate fifty percent of their work in forty-eight hours using the Pareto Principle, create automed income streams and embrace "mini-retirements" throughout life rather than at the end.
+                First published in 2007, it spent four years on the New York Times bestseller list, was translated into forty languages and sold approximately 2.1 million copies, becoming a defining text of the location-independent lifestyle movement.</p>
             <p>Key topics covered include:</p>
             <ul style="margin-left:20px;margin-bottom:15px;">
-                <li>Racial Injustice</li>
-                <li>Moral Courage</li>
-                <li>Loss of Innocence</li>
-                <li>Empathy and Perspective</li>
-                <li>Social Class and Inequality</li>
-                <li>Genders Roles</li>
+                <li>Lifestyle Design</li>
+                <li>The New Rich(NR)</li>
+                <li>The DEAL Framework</li>
+                <li>Pareto Principle (80/20 Rule)</li>
+                <li>Low-Information Diet</li>
+                <li>Outsourcing and Virtual Assitants</li>
             </ul>`,
-            price:18.99,
+            price:21.99,
             originalPrice:null, 
-            rating:4.9, 
-            reviewCount:98,
-            page:323,
-            publishDate:"2021-02-01",
-            isbn: 9780060935467,
-            isBestseller:false,
+            rating:4.5, 
+            reviewCount:210,
+            page:308,
+            publishDate:"2007-04-24",
+            isbn: 9780307353139,
+            isBestseller:true,
             isNew:false,
-            category:"fiction",
+            category:"business",
             features:[
                 {
                     icon:"fas fa-brain",
-                    tittle:"Pulitzer Prize Winner",
-                    description:"Awarded the Pulitzer Prize for Fiction in 1961."
+                    tittle:"The DEAL Acronym",
+                    description:"Simple, memorable four-step framework organizing the entire book."
                 },
                 {
                     icon: "fas fa-chart-line",
-                    tittle: "Over 40 Million Copies Sold",
-                    description: "One of the best-selling books of all time, translated into more than 40 languages"
+                    tittle: "Personal Origin Story",
+                    description: "Based on Ferriss's own transformation from eighty-hout workweeks to four-hour workweeks"
                 },
                 {
                     icon: "fas fa-users",
-                    tittle: "Unforgettable Protagonist",
-                    description: "Scout Finch is among the most beloved and iconic narrators in literary history"
-                },
-                {
-                    icon: "fas fa-crystal-ball",
-                    tittle: "Atticus Finch as Moral Ideal",
-                    description: "Atticus became a cultural archetype of integrity; frequently voted the greatest hero in American film and literature."
+                    tittle: "Princeton University Roots",
+                    description: "Concepts developed during guest lectures Ferriss delivered at his alma workers"
                 }
             ],
             tableContents:
             [
-                "Chapter 1",
-                "Chapter 2",
-                "Chapter 3",
-                "Chapter 4",
-                "Chapter 5",
-                "Chapter 6",
-                "Chapter 7",
-                "Chapter 8",
-                "Chapter 9",
-                "Chapter 10",
-                "Chapter 11",
-                "Chapter 12",
-                "Chapter 13",
-                "Chapter 14",
-                "Chapter 15",
-                "Chapter 16",
-                "Chapter 17",
-                "Chapter 18",
-                "Chapter 19",
-                "Chapter 20",
-                "Chapter 21",
-                "Chapter 22",
-                "Chapter 23",
-                "Chapter 24",
-                "Chapter 25",
-                "Chapter 26",
-                "Chapter 27",
-                "Chapter 28",
-                "Chapter 29",
-                "Chapter 30",
-                "Chapter 31"
+                "Chapter 1 : Cautions and Comparisons-How to Burn $1,000,000 a Night",
+                "Chapter 2 : Rules That Change the Rules-Everything Popular is Wrong",
+                "Chapter 3 : Dodging Bullets-Fear-Setting and Escaping Paralysis",
+                "Chapter 4 : System Reset-Being Unreasonable and Unambiguous",
+                "Chapter 5 : The End of Time Management-Illusions and Italians",
+                "Chapter 6 : The Low-Information Diet-Cultivating Selective Ignorance",
+                "Chapter 7 : Interrupting Interruption and the Art of Refusal",
+                "Chapter 8 : Outsourcing Life-Offloading the Rest and a Taste of Geoarbitrage",
+                "Chapter 9 : Income Autopilot I-Finding the Muse",
+                "Chapter 10 : Income Autopilot II-Testing the Muse",
+                "Chapter 11 : Income Autopilot III-MBA:Management By Absence",
+                "Chapter 12 : Disappearing Act-How to Escape the Office",
+                "Chapter 13 : Beyond Repair-Killing Your Job",
+                "Chapter 14 : Mini-Retirements-Embracing the Mobile Lifestyle",
+                "Chapter 15 : Filling the Void-Adding Life After Subtracting Work",
+                "Chapter 16 : The Top 13 New Rich Mistakes"
             ],
             authorBio:`
-                <p><strong>Harper Lee</strong> was an American novelist born on April 28, 1926, in Monroeville, Alabama.
-                    The youngest of four children, she was the daughter of Frances Cunningham Finch and Amasa Coleman Lee, a lawyer and newspaper editor whose defense of two Black men accused of murder served as partial inspiration for Atticus Finch.
-                    Lee srudied law at the University of Alabama but left six months before completing her degree to pursure writing in New York City. She worked as an airline reservation agent while writing fiction.
-                    In 1957, she submitted a manuscript to puiblishers; an editor at J.B Lippincott encouraged her to revise it into what became To Kill a Mockingbird.
-                    Published in 1960, the novel was an immediate sensation, winning the Pulitzer Prize and selling millions of copies worldwide.
-                    Lee was famously private, granting few interviews and publishing almost nothiing else for the remainder of her life.
-                    For decades, she lived between New York and Monroeville, avoiding public attention.
-                    In 2015, her first manuscript, Go Set a Watchman, was controversially published as a sequel,though it was actually written before Mockingbird and depicts an older, more compromised Atticus Finch.
-                    The publication sparked intense debate about whether Lee, who was elderly and in assisted living, had consented to its release.
-                    Lee died on Frebruary 19,2016, at the age of 89.
-                    Despite her singular bibilography, she is ragarded as one of the most important American writers of the twentieth century and To Kill a Mockingbird endures as a defining work of moral literature.</p>
+                <p><strong>Timothy Ferriss</strong> is an American entrepreneur, investor, author and podcaster born on July 20,1977, in East Hampton, New York.
+                    He graduated from Princeton University in 2000 with a degree in East Asian Studies.
+                    After college, Ferriss worked in sales at a data storage company before foundiing BrainQUICKEN, an internet based nutritional supplements business, in 2001.
+                    The company, later renamed BodyQUICK, was sold to a London-based private equity firm in 2010 and Ferriss has stated that The 4-Hour Workweek was directly based on this period of his life.
+                    Beyond his writing, Ferriss is a prominent angel investor and startup advisor, with early investments and advisory roles in companies including Uber, Facebook, Twitter, Shopify and TaskRabbit.
+                    In 2013, he launched an audiobook publishing venture and has since published works by Ryan Holiday and others.
+                    His long-running podcast, The Tim Ferriss Show, launched in 2014 and features interviews with world-class performs across industries; it has consistently ranked as one of the top business podcast globally.
+                    Ferriss has also hosted television programs including The Tim Ferriss Experiment and Fear(Less) with Tim Ferriss.
+                    Since 2016, he has donated at least two million dollars to psychedelic research at Johns Hopkins University and Imperial College London, citing his personal experience with bipolar disorder and the loss of a friend to drug overdose as motivations.
+                    A practitioner of Stocism and meditation, Ferriss gave a TED talk in 2017 titled "Why you should define your fears instead of your goals."
+                    In recent years, he has publicly reevaluated aspects of his earlier 4-Hour philosophy, acknowledeging that not everything meaningful can be measured.
+                    Ferriss resides in Austin, Texas and continues to release episodes of The Tim Ferriss Show.</p>
             `,
             reviews:[
                 {
@@ -325,8 +307,8 @@
                     name:"Ali",
                     date:"March 15,2025",
                     rating:5,
-                    tittle:"Good Novel",
-                    content:"I will promote it to my friends.",
+                    tittle:"Essential Reading for marketing",
+                    content:"This book completely changed my perspective on marketing. It help me very much.",
                     helpful:42,
                     notHelpful:0,
                 },
@@ -336,7 +318,7 @@
                     date:"April 15,2025",
                     rating:4,
                     tittle:"Good book",
-                    content:"I already repeat it 10 times.",
+                    content:"This book provide me many knowledge in marketing",
                     helpful:18,
                     notHelpful:1,
                 },
@@ -355,7 +337,7 @@
                     name:"Xiao Li",
                     date:"June 15,2025",
                     rating:4,
-                    tittle:"Greet Story",
+                    tittle:"Great Introduction to business",
                     content:"Greet introduction but not adapt for deep learning",
                     helpful:15,
                     notHelpful:3,
@@ -363,21 +345,21 @@
             ],
             relatedBooks:[
                 {
-                    id:7, 
-                    tittle:"Lessons in Chemistry", 
-                    author:"Bonnie Garmus",
-                    price:15.99, 
-                    originalPrice:24.99,
-                    category:"fiction"
+                    id:2, 
+                    tittle:"Building a StoryBrand: Clarify Your Message So Customers Will Listen", 
+                    author:"Donald Miller",
+                    price:12.99, 
+                    originalPrice:null,
+                    category:"business"
                 },
                 {
-                    id:9, 
-                    tittle:"Tomorrow, and Tomorrow, and Tomorrow", 
-                    author:"Gabrielle Zevin",
-                    price:19.99, 
-                    originalPrice:null,
-                    category:"fiction"
-                }
+                    id:3, 
+                    tittle:"To Sell Is Human: The Surprising Truth About Moving Others", 
+                    author:"Daniel H. Pink",
+                    price:14.99, 
+                    originalPrice:19.99,
+                    category:"business"
+                },
             ]
         };
     </script>
