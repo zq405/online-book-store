@@ -143,37 +143,32 @@ function renderProducts() {
     grid.innerHTML = "";
 
     products.forEach(product => {
-        let bg = product.status === 'Published' ? '#d1fae5' : '#f3f4f6';
-        let color = product.status === 'Published' ? '#065f46' : '#374151';
+        let badgeClass = product.status === 'Published' ? 'badge-published' : 'badge-draft';
 
         let hasImage = product.image && product.image.trim() !== "";
-        
         let imageContent = hasImage
-            ? `<img src="${product.image}" alt="Cover" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">`
-            : `<i class="fas fa-book fa-3x"></i>`;
-            
-        let imageStyle = hasImage
-            ? `height: 250px; padding: 0; border: none;` 
-            : `height: 250px; background: #e0f2fe; color: #0d47a1; display: flex; align-items: center; justify-content: center;`;
+            ? `<img src="${product.image}" alt="${product.title}">`
+            : `<div class="no-image"><i class="fas fa-book fa-3x"></i></div>`;
 
         let cardHTML = `
-            <div class="card">
-                <div class="card-image-placeholder" style="${imageStyle}">
+            <div class="product-card">
+                <div class="product-image-container">
                     ${imageContent}
+                    <span class="status-badge ${badgeClass}">${product.status}</span>
                 </div>
-                <span class="badge" style="background: ${bg}; color: ${color}; align-self: flex-start; margin-top: 10px;">${product.status}</span>
-                <h3 class="card-title">${product.title}</h3>
-                <div class="card-footer">
-                    <div class="metric">
-                        <span>Price</span>
-                        <strong>RM ${product.price}</strong>
+                
+                <div class="product-info">
+                    <h3 class="product-title">${product.title}</h3>
+                    <div class="product-meta">
+                        <span class="price-tag">RM ${parseFloat(product.price).toFixed(2)}</span>
                     </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="editProduct(${product.id})" class="btn-delete" style="color:#2563eb; background:none; border:none; cursor:pointer;" title="Edit">
-                            <i class="fas fa-edit"></i>
+                    
+                    <div class="action-buttons">
+                        <button onclick="editProduct(${product.id})" class="btn-icon edit">
+                            <i class="fas fa-edit"></i> Edit
                         </button>
-                        <button onclick="deleteProduct(${product.id})" class="btn-delete" style="color:red; background:none; border:none; cursor:pointer;" title="Delete">
-                            <i class="fas fa-trash"></i>
+                        <button onclick="deleteProduct(${product.id})" class="btn-icon delete">
+                            <i class="fas fa-trash"></i> Remove
                         </button>
                     </div>
                 </div>
