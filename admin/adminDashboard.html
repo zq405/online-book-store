@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Dashboard - BookVerse Admin</title>
-    <link rel="stylesheet" href="adminStyle.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="adminStyle.css">
 </head>
 <body>
 
     <div class="sidebar">
         <div class="logo">
-            <i class="fas fa-book-open" style="color: #2563eb;"></i> 
+            <i class="fas fa-book-open"></i> 
             <span>BookVerse</span>
         </div>
         
@@ -25,7 +29,7 @@
             <li><a href="manageOrders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
             <li><a href="salesReport.html"><i class="fas fa-chart-line"></i> Sales Report</a></li>
             
-            <li style="margin-top: auto; border-top: 1px solid #eee; padding-top: 10px;">
+            <li class="logout-link">
                 <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </li>
         </ul>
@@ -33,25 +37,101 @@
 
     <div class="main-content">
         <header class="top-bar">
-            <h2>Dashboard Overview</h2>
+            <div class="welcome-text">
+                <h2>Dashboard Overview</h2>
+                <p>Welcome back, here's today's system update.</p>
+            </div>
             
-            <div class="user-menu" style="display: flex; align-items: center; gap: 15px;">
-                <span id="displayUsername" style="font-weight: 600; color: #374151;">Loading...</span>
-                <div id="displayInitials" style="width: 36px; height: 36px; background-color: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">--</div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <span id="displayUsername">Admin</span>
+                    <small>Admin</small>
+                </div>
+                <div id="displayInitials">AD</div>
             </div>
         </header>
 
         <div class="dashboard-view">
+            
             <div class="card-grid">
-                <div class="card">
-                    <div class="metric"><span>Total Orders</span> <strong>152</strong></div>
+                <div class="card card-blue">
+                    <div class="card-info">
+                        <span>Total Orders</span>
+                        <h3>152</h3>
+                        <small class="text-up"><i class="fas fa-arrow-up"></i> +12% this week</small>
+                    </div>
+                    <i class="fas fa-shopping-bag card-icon"></i>
                 </div>
-                <div class="card">
-                    <div class="metric"><span>Total Members</span> <strong>84</strong></div>
+                
+                <div class="card card-green">
+                    <div class="card-info">
+                        <span>Total Members</span>
+                        <h3>84</h3>
+                        <small class="text-up"><i class="fas fa-arrow-up"></i> +5 new today</small>
+                    </div>
+                    <i class="fas fa-users card-icon"></i>
                 </div>
-                <div class="card">
-                    <div class="metric"><span>Total Books</span> <strong>420</strong></div>
+                
+                <div class="card card-orange">
+                    <div class="card-info">
+                        <span>Total Books</span>
+                        <h3>420</h3>
+                        <small>In 12 Categories</small>
+                    </div>
+                    <i class="fas fa-book card-icon"></i>
                 </div>
+
+                <div class="card card-purple">
+                    <div class="card-info">
+                        <span>Pending Orders</span>
+                        <h3>12</h3>
+                        <small class="text-danger">Action needed</small>
+                    </div>
+                    <i class="fas fa-clock card-icon"></i>
+                </div>
+            </div>
+
+            <div class="recent-section">
+                <div class="section-header">
+                    <h3>Recent Orders</h3>
+                    <a href="manageOrders.html" class="btn-view-all">View All</a>
+                </div>
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>Bryan</td>
+                            <td><span class="badge success">Completed</span></td>
+                            <td>RM 45.00</td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>Xin Rui</td>
+                            <td><span class="badge warning">Pending</span></td>
+                            <td>RM 120.50</td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-003</td>
+                            <td>Sky</td>
+                            <td><span class="badge info">Shipped</span></td>
+                            <td>RM 89.90</td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-004</td>
+                            <td>Chin</td>
+                            <td><span class="badge warning">Pending</span></td>
+                            <td>RM 35.00</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -68,6 +148,13 @@
                 document.getElementById("displayInitials").textContent = currentUser.substring(0, 2).toUpperCase();
             }
         });
+
+        function logout() {
+            if(confirm("Are you sure you want to logout?")) {
+                localStorage.removeItem("currentAdminUser");
+                window.location.href = "adminLogin.html";
+            }
+        }
     </script>
 </body>
 </html>
