@@ -1,108 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="favicon.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <title>Sales Report - BookVerse Admin</title>
-    <link rel="stylesheet" href="adminStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="adminStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        
-        .kpi-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; }
-        .kpi-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        .kpi-info h3 { margin: 0; font-size: 14px; color: #6b7280; }
-        .kpi-info p { margin: 5px 0 0 0; font-size: 24px; font-weight: 800; color: #1f2937; }
+      .report-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
 
-        .chart-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        
-        @media print {
-            .sidebar, .top-bar, .btn-primary { display: none !important; }
-            .main-content { margin-left: 0; padding: 0; }
-            .chart-container { box-shadow: none; border: 1px solid #ddd; }
+      .kpi-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .kpi-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      .kpi-info h3 {
+        margin: 0;
+        font-size: 14px;
+        color: #6b7280;
+      }
+      .kpi-info p {
+        margin: 5px 0 0 0;
+        font-size: 24px;
+        font-weight: 800;
+        color: #1f2937;
+      }
+
+      .chart-container {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+
+      .btn-pdf {
+        position: absolute;
+        right: 140px; /* Adjust this so it doesn't overlap the 'Admin' text */
+        top: 50%;
+        transform: translateY(-50%); /* This centers it perfectly vertically */
+        background-color: #d32f2f;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      @media print {
+        .sidebar,
+        .top-bar,
+        .btn-primary,
+        .btn-pdf {
+          display: none !important;
         }
+        .main-content {
+          margin-left: 0;
+          padding: 0;
+        }
+        .chart-container {
+          box-shadow: none;
+          border: 1px solid #ddd;
+        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="sidebar">
-        <div class="logo">
-            <i class="fas fa-book-open" style="color: #0d47a1;"></i> 
-            <span>BookVerse</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="adminDashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="manageStaff.html"><i class="fas fa-user-tie"></i> Manage Staff</a></li>
-            <li><a href="manageMembers.html"><i class="fas fa-users"></i> Manage Members</a></li>
-            <li><a href="manageCategories.html"><i class="fas fa-layer-group"></i> Manage Categories</a></li>
-            <li><a href="manageProducts.html"><i class="fas fa-book"></i> Manage Books</a></li>
-            <li><a href="manageOrders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
-            <li><a href="salesReport.html" class="active"><i class="fas fa-chart-line"></i> Sales Report</a></li>
-            <li style="margin-top: auto; border-top: 1px solid #eee; padding-top: 10px;">
-                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </li>
-        </ul>
+      <div class="logo">
+        <i class="fas fa-book-open" style="color: #0d47a1"></i>
+        <span>BookVerse</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="adminDashboard.html"
+            ><i class="fas fa-home"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="manageStaff.html"
+            ><i class="fas fa-user-tie"></i> Manage Staff</a
+          >
+        </li>
+        <li>
+          <a href="manageMembers.html"
+            ><i class="fas fa-users"></i> Manage Members</a
+          >
+        </li>
+        <li>
+          <a href="manageCategories.html"
+            ><i class="fas fa-layer-group"></i> Manage Categories</a
+          >
+        </li>
+        <li>
+          <a href="manageProducts.html"
+            ><i class="fas fa-book"></i> Manage Books</a
+          >
+        </li>
+        <li>
+          <a href="manageOrders.html"
+            ><i class="fas fa-shopping-cart"></i> Manage Orders</a
+          >
+        </li>
+        <li>
+          <a href="salesReport.html" class="active"
+            ><i class="fas fa-chart-line"></i> Sales Report</a
+          >
+        </li>
+        <li
+          style="
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+          "
+        >
+          <a href="#" onclick="logout()"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+          >
+        </li>
+      </ul>
     </div>
 
     <div class="main-content">
-        <header class="top-bar">
-            <h2>Sales Report</h2>
-            <div class="user-menu">
-                <span id="displayUsername" style="font-weight: 600;">Admin</span>
-                <div class="profile-img" style="background: #0d47a1; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%;">AD</div>
-            </div>
-        </header>
+      <header class="top-bar" style="position: relative">
+        <h2>Sales Report</h2>
 
-        <div class="dashboard-view">
-            <div class="page-header">
-                <h1 class="page-title">Monthly Overview</h1>
-                <button onclick="window.print()" class="btn-primary" style="background: #4b5563;">
-                    <i class="fas fa-print"></i> Generate PDF
-                </button>
-            </div>
+        <button class="btn-pdf" onclick="window.print()">
+          <i class="fas fa-file-pdf"></i> Generate PDF
+        </button>
 
-            <div class="report-grid">
-                <div class="kpi-card">
-                    <div class="kpi-icon" style="background: #d1fae5; color: #059669;">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div class="kpi-info">
-                        <h3>Total Revenue</h3>
-                        <p id="totalRevenue">RM 0.00</p>
-                    </div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-icon" style="background: #dbeafe; color: #2563eb;">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                    <div class="kpi-info">
-                        <h3>Total Orders</h3>
-                        <p id="totalOrders">0</p>
-                    </div>
-                </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-icon" style="background: #f3f4f6; color: #4b5563;">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <div class="kpi-info">
-                        <h3>Pending Orders</h3>
-                        <p id="pendingOrders">0</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <h3 style="margin-bottom: 20px; color: #374151;">Sales Trends (2026)</h3>
-                <canvas id="salesChart" style="max-height: 400px;"></canvas>
-            </div>
+        <div class="user-menu">
+          <span id="displayUsername" style="font-weight: 600">Admin</span>
+          <div
+            class="profile-img"
+            style="
+              background: #0d47a1;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+            "
+          >
+            AD
+          </div>
         </div>
+      </header>
+
+      <div class="dashboard-view">
+        <div class="page-header">
+          <h1 class="page-title">Monthly Overview</h1>
+        </div>
+
+        <div class="report-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background: #d1fae5; color: #059669">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="kpi-info">
+              <h3>Total Revenue</h3>
+              <p id="totalRevenue">RM 0.00</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background: #dbeafe; color: #2563eb">
+              <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="kpi-info">
+              <h3>Total Orders</h3>
+              <p id="totalOrders">0</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background: #f3f4f6; color: #4b5563">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="kpi-info">
+              <h3>Pending Orders</h3>
+              <p id="pendingOrders">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3 style="margin-bottom: 20px; color: #374151">
+            Sales Trends (2026)
+          </h3>
+          <canvas id="salesChart" style="max-height: 400px"></canvas>
+        </div>
+      </div>
     </div>
 
     <script src="adminScript.js"></script>
-</body>
+  </body>
 </html>
