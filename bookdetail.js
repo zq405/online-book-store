@@ -306,7 +306,7 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
             });
         }
 
-        function addTocart()
+        function addToCart()
         {
             if(shoppingCart.some(item=>item.id===bookData.id))
             {
@@ -318,7 +318,7 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
                 tittle:bookData.tittle,
                 price:bookData.price,
                 quantity:1,
-                cover:`Book Cover: ${bookData,tittle}`
+                cover:`Book Cover: ${bookData.tittle}`
             });
             localStorage.setItem('bookverse_cart',JSON.stringify(shoppingCart));
             updateCartCount();
@@ -351,7 +351,7 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
             event.preventDefault();
             const rating=parseInt(document.getElementById('selected-rating').value);
             const name=document.getElementById('review-name').value.trim();
-            const email=document.getElementById('review=email').value.trim();
+            const email=document.getElementById('review-email').value.trim();
             const tittle=document.getElementById('review-tittle').value.trim();
             const content=document.getElementById('review-content').value.trim();
             if(rating===0)
@@ -380,16 +380,18 @@ let shoppingCart=JSON.parse(localStorage.getItem('bookverse_cart'))||[];
             };
             userReviews.unshift(newReview);
             const totalRating=userReviews.reduce((sum,review)=>sum +review.rating,0);
-            docuemnt.getElementById('rating-number').textContent=averageRating;
+            const averageRating=(totalRating/userReviews.length).toFixed(1);
+            document.getElementById('rating-number').textContent=averageRating;
             document.getElementById('average-rating').textContent=averageRating;
             document.getElementById('rating-count').textContent=`(${userReviews,length}reviews)`;
+            document.getElementById('total-review-count').textContent=`${userReviews.length}reviews`;
             generateStars('rating-stars',averageRating);
-            generateStars('average-rating=stars',averageRating);
+            generateStars('average-rating-stars',averageRating);
             loadReviews();
             clearReviewForm();
             showNotification('Thank you for your review');
             setTimeout(()=>{
-                document.querySelector('.review-section').scrollIntoView({
+                document.querySelector('.reviews-section').scrollIntoView({
                     behavior:'smooth'
                 });
             },500);
